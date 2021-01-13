@@ -1,0 +1,12 @@
+{
+    "version": "1.0.0",
+    "expressSettings": {
+        "port": 4000
+    },
+    "databaseConfig": {
+        "host": "localhost",
+        "user": "root",
+        "password": "",
+        "database": "D3L"
+    }
+}
