@@ -1,9 +1,14 @@
 {
   "name": "d3l-backend",
+  "author": "D3L Team",
   "version": "1.0.0",
   "description": "Backend server for D3L",
   "main": "index.js",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1",
     "node-fetch": "^2.6.1",
     "nodemon": "^2.0.4"
   },
@@ -14,6 +19,5 @@
   },
   "scripts": {
     "start": "nodemon ./src/index.js --exec babel-node -e js"
-  },
-  "author": "D3L Team",
+  }
 }
