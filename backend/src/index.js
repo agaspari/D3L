@@ -23,4 +23,4 @@ app.listen(PORT, () => {
 
 
 /* Database */
-initalizeConnection();
+//initalizeConnection();
