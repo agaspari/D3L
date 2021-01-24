@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import './App.css';
 import AppRouter from './AppRouter';
 import logo from "./logo.svg";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-calendar/dist/Calendar.css';
 
 class App extends Component {
     render() {
