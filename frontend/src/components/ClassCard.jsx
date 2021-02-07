@@ -1,4 +1,5 @@
 import React from "react";
+import Details from "../components/Details";
 import { Button, Card } from 'react-bootstrap';
 
 
@@ -12,6 +13,12 @@ export default class ClassCard extends React.Component {
 
     render() {
         const { image, title, id } = this.props;
+
+        const DATA = [
+            { id: "todo-0", name: "Eat", completed: true },
+            { id: "todo-1", name: "Sleep", completed: false },
+            { id: "todo-2", name: "Repeat", completed: false }
+          ];
 
         return (
             <div className="col-md-6">

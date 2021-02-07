@@ -1,6 +1,7 @@
 import React from "react";
 import ClassCard from "../components/ClassCard";
 
+
 export default class StudentDashboard extends React.Component {
     constructor(props) {
         super(props);
