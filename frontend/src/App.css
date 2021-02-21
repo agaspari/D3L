@@ -40,3 +40,72 @@
 .App-link {
     color: #61dafb;
 }
+
+/* DASHBOARD */
+.FacultyDashboard {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* WORKLIST */
+.WorkList {
+  border: 1px solid grey;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+/* STUDENT-LIST */
+.StudentList {
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+
+.SingleStudent { 
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 1px;
+  margin: 3px;
+}
+ 
+.SingleStudent span {
+  text-decoration: none;
+}
+
+/* TOREVIEW */
+.ToReview {
+  border: 1px solid grey;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.Assignment {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 1px;
+  margin: 3px;
+}
+
+.Assignment header {
+  font-weight: bold;
+}
+
+/* TAB BUTTON */
+.tab-list {
+  border-bottom: 1px solid #ccc;
+  padding-left: 0;
+}
+
+.tab-list-item {
+  display: inline-block;
+  list-style: none;
+  margin-bottom: -1px;
+  padding: 0.5rem 0.75rem;
+}
+
+.tab-list-active {
+  background-color: white;
+  border: solid #ccc;
+  border-width: 1px 1px 0 1px;
+}
