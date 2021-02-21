@@ -8,13 +8,19 @@ export class SingleStudent extends Component {
         this.state = {
         }
     }
+
     
     render() {
         const {fname, lname} = this.props.student;
 
+        const deleteStudent = () => {
+            this.props.onDelete()
+        }
+
         return (
             <div className="SingleStudent">
                 <span>{fname} {lname}</span>
+                <button onClick={deleteStudent}>delete</button>
             </div>
         )
     }

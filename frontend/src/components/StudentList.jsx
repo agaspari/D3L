@@ -23,12 +23,18 @@ class StudentList extends Component {
     render() {
         const {groups, students} = this.state;
 
+        const deleteStudent = () => {
+            const changes = {groups: []}
+            this.setState(Object.assign({}, this.state, changes))
+        }
+
+
         return (
             <div className="StudentList">
                 {groups.map(group => (
                     <div className="group-container">
                         <header className="group-title">{group.title}</header>
-                        {group.studentIds.map(studentId => <SingleStudent student={students[studentId]}/>)}
+                        {group.studentIds.map(studentId => <SingleStudent onDelete={deleteStudent} student={students[studentId]}/>)}
                     </div>                
                 ))} 
             </div>
