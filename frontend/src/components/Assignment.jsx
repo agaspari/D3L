@@ -11,8 +11,12 @@ export class Assignment extends Component {
     render() {
         const {title, content} = this.props.assignment;
 
+        const editAssignment = () => {
+            console.log(title)
+        }
+
         return (
-            <div className="Assignment">
+            <div className="Assignment" onClick={editAssignment}>
                 <header>{title}</header>
                 <p>{content}</p>
             </div>

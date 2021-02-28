@@ -9,13 +9,19 @@ export default class ToReview extends Component {
             assignments: {
                 10: {title: "Homework1", content: "Hello, this...", studentIds: [1]},
                 11: {title: "Homework2", content: "Hello, this...", studentIds: [2]},
-                12: {title: "Homework3", content: "Hello, this...", studentIds: [3]}
+                12: {title: "Homework3", content: "Hello, this...", studentIds: [3]},
+                13: {title: "Homework1", content: "Hello, this...", studentIds: [1]},
+                14: {title: "Homework2", content: "Hello, this...", studentIds: [2]},
+                15: {title: "Homework3", content: "Hello, this...", studentIds: [3]},
+                16: {title: "Homework1", content: "Hello, this...", studentIds: [1]},
+                17: {title: "Homework2", content: "Hello, this...", studentIds: [2]},
+                18: {title: "Homework3", content: "Hello, this...", studentIds: [3]}
             }
         }
     }
     
     render() {
-        const {assignments} = this.state;
+        const { assignments } = this.state
 
         return (
             <div className="ToReview">

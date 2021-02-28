@@ -9,8 +9,15 @@ class StudentList extends Component {
     render() {
         const {groups, students, onDeleteStudent} = this.props;
 
+        const editRoster = () => {
+            console.log("edit clicked")
+        }
+
         return (
             <div className="StudentList">
+                <header>Students
+                    <button onClick={editRoster}>edit</button>
+                </header>
                 {groups.map(group => (
                     <div className="group-container">
                         <header className="group-title">{group.title}</header>

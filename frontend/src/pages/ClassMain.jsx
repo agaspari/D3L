@@ -22,14 +22,19 @@ class ClassMain extends Component {
         2: { fname: "Doug", lname: "Winters" },
         3: { fname: "Clementine", lname: "Smith" },
         4: { fname: "Pat", lname: "Johnson" }
-      }
+      },
+      tasks: [
+        { title: "Add state to todo.", status: "active" },
+        { title: "Add edit assignment feature.", status: "active" },
+        { title: "Edit student list.", status: "complete" }
+      ]
     }
   }
 
   render() {
     const props = Object.assign({}, defaultProps, this.props)
     const { user } = props
-    const { groups, students } = this.state
+    const { groups, students, tasks } = this.state
 
 
     const deleteStudent = () => {
@@ -39,7 +44,7 @@ class ClassMain extends Component {
 
 
     if (user.type === 'faculty') {
-      return <FacultyDashboard onDeleteStudent={deleteStudent} groups={groups} students={students} />
+      return <FacultyDashboard onDeleteStudent={deleteStudent} groups={groups} students={students} tasks={tasks} />
     } else {
       return <StudentDashboard />
     }
