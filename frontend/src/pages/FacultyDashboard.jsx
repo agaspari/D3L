@@ -6,13 +6,13 @@ import ToReview from '../components/ToReview'
 
 export default class FacultyDashboard extends Component {
     render() {
-        const { groups, students, tasks, onDeleteStudent } = this.props
+        const { groups, students, tasks, assignments, onDeleteStudent, onEditAssignment } = this.props
 
         return (
             <div className="FacultyDashboard">
                 <StudentList onDeleteStudent={onDeleteStudent} groups={groups} students={students}/>
                 <WorkList tasks={tasks}/>
-                <ToReview/>
+                <ToReview onEditAssignment={onEditAssignment} assignments={assignments}/>
             </div>
         )
     }

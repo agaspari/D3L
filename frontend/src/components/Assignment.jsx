@@ -12,7 +12,7 @@ export class Assignment extends Component {
         const {title, content} = this.props.assignment;
 
         const editAssignment = () => {
-            console.log(title)
+            this.props.onEdit()
         }
 
         return (
