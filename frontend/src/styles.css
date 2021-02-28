@@ -13,8 +13,7 @@
     flex-direction: column;
   }
   
-  input {
-    max-width: 450px;
+  input { 
     width: auto;
     border: none;
     margin: 0 0 25px 0;
