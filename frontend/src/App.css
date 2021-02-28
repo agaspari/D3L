@@ -1,3 +1,4 @@
+
 .App {
     text-align: center;
 }
@@ -44,28 +45,43 @@
 /* DASHBOARD */
 .FacultyDashboard {
   display: flex;
+  width: 100%;
   justify-content: space-evenly;
+  flex-basis: 0;
+  height: 80vh
 }
 
 /* WORKLIST */
 .WorkList {
-  border: 1px solid grey;
-  border-radius: 5px;
-  margin-top: 10px;
-}
-
-/* STUDENT-LIST */
-.StudentList {
+  flex: 1;
+  margin: 5px;
   border: 1px solid black;
   border-radius: 5px;
-  margin-top: 10px;
 }
 
+/* STUDENTLIST */
+.StudentList {
+  flex: 1;
+  margin: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.StudentList header {
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.group-title {
+  font-weight: bold;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 3px;
+}
 
 .SingleStudent { 
   border: 1px solid black;
   border-radius: 5px;
-  padding: 1px;
   margin: 3px;
 }
  
@@ -75,9 +91,17 @@
 
 /* TOREVIEW */
 .ToReview {
-  border: 1px solid grey;
+  flex: 1;
+  margin: 5px;
+  border: 1px solid black;
   border-radius: 5px;
-  margin-top: 10px;
+  margin-top: 5px;
+  overflow-y: scroll;
+}
+
+.ToReview header {
+  font-weight: bold;
+  margin-top: 5px;
 }
 
 .Assignment {
@@ -93,11 +117,12 @@
 
 /* TAB BUTTON */
 .tab-list {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid black;
   padding-left: 0;
 }
 
 .tab-list-item {
+  font-weight: bold;
   display: inline-block;
   list-style: none;
   margin-bottom: -1px;
@@ -105,7 +130,6 @@
 }
 
 .tab-list-active {
-  background-color: white;
-  border: solid #ccc;
+  background-color: lightgrey;
   border-width: 1px 1px 0 1px;
 }
