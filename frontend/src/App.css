@@ -59,6 +59,12 @@
   border-radius: 5px;
 }
 
+.single-task {
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 3px;
+}
+
 /* STUDENTLIST */
 .StudentList {
   flex: 1;

@@ -1,9 +1,11 @@
 import React from 'react'
 
-export default function Task() {
+export default function Task(props) {
+
     return (
-        <div>
-            
+        <div className="single-task">
+            <p>{props.task.title}</p>
+            <footer>{props.task.status}</footer>
         </div>
     )
 }
