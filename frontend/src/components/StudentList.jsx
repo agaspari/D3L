@@ -15,15 +15,14 @@ class StudentList extends Component {
 
         return (
             <div className="StudentList">
-                <header>Students
-                    <button onClick={editRoster}>edit</button>
-                </header>
+                <header>Students</header>
                 {groups.map(group => (
                     <div className="group-container">
                         <header className="group-title">{group.title}</header>
                         {group.studentIds.map(studentId => <SingleStudent onDelete={onDeleteStudent} student={students[studentId]}/>)}
                     </div>                
-                ))} 
+                ))}
+                <button onClick={editRoster}>Add Group</button> 
             </div>
         );
     }
