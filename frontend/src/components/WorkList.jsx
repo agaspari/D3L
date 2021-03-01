@@ -31,7 +31,7 @@ export default class WorkList extends Component {
                         })}
                     </div>
                 </Tabs>
-                <button addTask={console.log("add task clicked")}>Add Task</button>
+                <button addTask={() => console.log("add task clicked")}>Add Task</button>
             </div>
             
         )

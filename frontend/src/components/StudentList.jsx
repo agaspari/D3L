@@ -13,13 +13,17 @@ class StudentList extends Component {
             console.log("edit clicked")
         }
 
+        const deleteStudent = (studentId, groupKey) => {
+            onDeleteStudent(studentId, groupKey)
+        }
+
         return (
             <div className="StudentList">
                 <header>Students</header>
-                {groups.map(group => (
+                {Object.entries(groups).map(([k, group]) => (
                     <div className="group-container">
                         <header className="group-title">{group.title}</header>
-                        {group.studentIds.map(studentId => <SingleStudent onDelete={onDeleteStudent} student={students[studentId]}/>)}
+                        {group.studentIds.map(studentId => <SingleStudent onDelete={() => deleteStudent(studentId, k)} student={students[studentId]}/>)}
                     </div>                
                 ))}
                 <button onClick={editRoster}>Add Group</button> 

@@ -13,10 +13,10 @@ class ClassMain extends Component {
     super(props)
 
     this.state = {
-      groups: [
-        { title: "red", studentIds: [1, 2] },
-        { title: "blue", studentIds: [3, 4] }
-      ],
+      groups: {
+        22: { title: "red", studentIds: [1, 2] },
+        44: { title: "blue", studentIds: [3, 4] }
+      },
       students: {
         1: { fname: "Lisa", lname: "Anthony" },
         2: { fname: "Doug", lname: "Winters" },
@@ -49,9 +49,11 @@ class ClassMain extends Component {
     const { groups, students, tasks, assignments } = this.state
 
 
-    const deleteStudent = () => {
-      const changes = { groups: [] }
-      this.setState(Object.assign({}, this.state, changes))
+    const deleteStudent = (studentId, groupKey) => {
+      console.log({studentId, groupKey})
+      // const newGroup = groups[groupKey]
+      // const changes = { groups: [] }
+      // this.setState(Object.assign({}, this.state, changes))
     }
 
     const editAssignment = () => {
