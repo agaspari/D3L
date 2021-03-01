@@ -20,7 +20,7 @@ export class SingleStudent extends Component {
         return (
             <div className="SingleStudent">
                 <span>{fname} {lname}</span>
-                <button onClick={deleteStudent}>delete</button>
+                <button className="delete-button" onClick={deleteStudent}>x</button>
             </div>
         )
     }

@@ -14,8 +14,8 @@ class ClassMain extends Component {
 
     this.state = {
       groups: {
-        22: { title: "red", studentIds: [1, 2] },
-        44: { title: "blue", studentIds: [3, 4] }
+        22: { title: "Group 1", studentIds: [1, 2] },
+        44: { title: "Group 2", studentIds: [3, 4] }
       },
       students: {
         1: { fname: "Lisa", lname: "Anthony" },
@@ -24,9 +24,9 @@ class ClassMain extends Component {
         4: { fname: "Pat", lname: "Johnson" }
       },
       tasks: [
-        { title: "Add state to todo.", status: "active" },
-        { title: "Add edit assignment feature.", status: "active" },
-        { title: "Edit student list.", status: "complete" }
+        { title: "Add state to todo.", status: "Active" },
+        { title: "Add edit assignment feature.", status: "Active" },
+        { title: "Edit student list.", status: "Complete" }
       ],
       assignments: {
         10: {title: "Homework1", content: "Hello, this...", studentIds: [1]},
@@ -50,19 +50,14 @@ class ClassMain extends Component {
 
 
     const deleteStudent = (studentId, groupKey) => {
-      console.log({studentId, groupKey})
-      // const newGroup = groups[groupKey]
-      // const changes = { groups: [] }
-      // this.setState(Object.assign({}, this.state, changes))
-    }
-
-    const editAssignment = () => {
-      alert("editAssignment clicked")
+      const oldGroup = groups[groupKey]
+      const newIds = groups[groupKey].studentIds.filter(id => id !== studentId)
+      this.setState(Object.assign({}, oldGroup.studentIds, oldGroup.studentIds = newIds))
     }
 
 
     if (user.type === 'faculty') {
-      return <FacultyDashboard onEditAssignment={editAssignment} onDeleteStudent={deleteStudent} groups={groups} students={students} tasks={tasks} assignments={assignments} />
+      return <FacultyDashboard  onDeleteStudent={deleteStudent} groups={groups} students={students} tasks={tasks} assignments={assignments} />
     } else {
       return <StudentDashboard />
     }
