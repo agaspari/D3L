@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import './App.css';
+import {ProfileForm} from './components/ProfileForm';
 import AppRouter from './AppRouter';
 import logo from "./logo.svg";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -18,7 +19,7 @@ class App extends Component {
                         <img src={logo} className="App-logo" alt="logo" />
                         <div className="urls">
                             <div className="url">
-                                <a href="/page1">URL 1</a>
+                                <a href="/page1">Profile Page</a>
                             </div>
                             <div className="url">
                                 <a href="/page2">URL 2</a>

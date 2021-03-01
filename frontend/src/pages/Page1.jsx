@@ -1,4 +1,5 @@
 import React from "react";
+import ProfileForm from "../components/ProfileForm";
 
 export default class Page1 extends React.Component {
     constructor(props) {
@@ -13,8 +14,7 @@ export default class Page1 extends React.Component {
 
         return (
             <div>
-                <h1>D3L</h1>
-                <p>{pageName}</p>
+               <ProfileForm/>
             </div>
         ); 
     }
