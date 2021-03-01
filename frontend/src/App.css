@@ -65,6 +65,10 @@
   margin: 3px;
 }
 
+.task-content {
+  flex: auto;
+}
+
 /* STUDENTLIST */
 .StudentList {
   flex: 1;
@@ -76,6 +80,16 @@
 .StudentList header {
   font-weight: bold;
   margin-top: 5px;
+}
+
+.add-group-button {
+  font-weight: bold;;
+  color: darkgreen;
+  border: darkgreen;
+  background-color: white;
+  border-radius: 50%;
+  font-size: 12px;
+  float: center;
 }
 
 .group-title {
@@ -94,6 +108,26 @@
 .SingleStudent span {
   text-decoration: none;
 }
+
+.delete-button {
+  font-weight: bold;
+  color: darkred;
+  border: none;
+  background: none;
+  font-size: 12px;
+  float: right;
+}
+
+.add-button {
+  font-weight: bold;
+  color: darkgreen;
+  border: none;
+  background: none;
+  font-size: 12px;
+  float: right;
+}
+
+
 
 /* TOREVIEW */
 .ToReview {
