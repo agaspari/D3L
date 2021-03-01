@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import StudentList from '../components/StudentList'
-import WorkList from '../components/WorkList'
+import TaskList from '../components/TaskList'
 import ToReview from '../components/ToReview'
 
 
@@ -11,7 +11,7 @@ export default class FacultyDashboard extends Component {
         return (
             <div className="FacultyDashboard">
                 <StudentList onDeleteStudent={onDeleteStudent} groups={groups} students={students}/>
-                <WorkList tasks={tasks}/>
+                <TaskList tasks={tasks}/>
                 <ToReview onEditAssignment={onEditAssignment} assignments={assignments}/>
             </div>
         )
