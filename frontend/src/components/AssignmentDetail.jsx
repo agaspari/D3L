@@ -1,7 +1,14 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 export default function AssignmentDetail(props) {
+
+  const { content, submitDate, authors } = props;
+  
   return (
-    <div>hello</div>
+    <div>
+      {content}
+      {authors.map(author => <div className="assignment-authors">{author.fname} {author.lname}</div>)}
+      Submitted on: {submitDate}
+    </div>
   )
 }

@@ -12,7 +12,7 @@ export default class FacultyDashboard extends Component {
             <div className="FacultyDashboard">
                 <StudentList onDeleteStudent={onDeleteStudent} groups={groups} students={students}/>
                 <TaskList tasks={tasks}/>
-                <ToReview onEditAssignment={onEditAssignment} assignments={assignments}/>
+                <ToReview onEditAssignment={onEditAssignment} assignments={assignments} students={students}/>
             </div>
         )
     }

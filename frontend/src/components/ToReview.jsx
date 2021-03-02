@@ -10,12 +10,12 @@ export default class ToReview extends Component {
     }
     
     render() {
-        const { assignments, onEditAssignment } = this.props;
+        const { assignments, onEditAssignment, students } = this.props;
 
         return (
             <div className="ToReview">
                 <header>To Review</header>
-                {Object.keys(assignments).map(key => <Assignment onEdit={onEditAssignment} assignment={assignments[key]}/>)}
+                {Object.keys(assignments).map(key => <Assignment onEdit={onEditAssignment} assignment={assignments[key]} students={students}/>)}
             </div>
         )
     }

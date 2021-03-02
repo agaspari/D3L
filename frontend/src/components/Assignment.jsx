@@ -18,7 +18,9 @@ export class Assignment extends Component {
     }
     
     render() {
-        const {title, content} = this.props.assignment;
+        const { assignment: { title, content, studentIds, submitDate }, students } = this.props; 
+        
+        const authors = studentIds.map(id => students[id])
 
         const editAssignment = () => {
             this.props.onEdit()
@@ -27,9 +29,8 @@ export class Assignment extends Component {
         return (
             <div className="Assignment" onClick={this.editAssignment}>
                 <header>{title}</header>
-                <p>{content}</p>
                 {this.state.showComponent ?
-                    <AssignmentDetail /> :
+                    <AssignmentDetail content={content} submitDate={submitDate} authors={authors}/> :
                     null
                 }
             </div>
