@@ -51,8 +51,8 @@
   height: 80vh
 }
 
-/* WORKLIST */
-.WorkList {
+/* TASKLIST */
+.TASKLIST {
   flex: 1;
   margin: 5px;
   border: 1px solid black;

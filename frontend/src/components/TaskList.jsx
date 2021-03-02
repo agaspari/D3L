@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Tabs from './Tabs'
 import Task from './Task'
 
-export default class WorkList extends Component {
+export default class TaskList extends Component {
     constructor(props) {
         super(props)
     }
@@ -11,7 +11,7 @@ export default class WorkList extends Component {
         const { tasks } = this.props;
 
         return (
-            <div className="WorkList">
+            <div className="TASKLIST">
                 <Tabs>
                     <div label="All">
                         {tasks.map(task => <Task task={task} />)}
