@@ -14,7 +14,7 @@ export class SingleStudent extends Component {
         const {fname, lname} = this.props.student;
 
         const deleteStudent = () => {
-            this.props.onDelete()
+            this.props.onDeleteStudent()
         }
 
         return (

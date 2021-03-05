@@ -31,9 +31,8 @@ export default class TaskList extends Component {
                         })}
                     </div>
                 </Tabs>
-                <button className="add-group-button" addTask={() => console.log("add task clicked")}>ADD TASK</button>
-            </div>
-            
-        )
+                <button className="add-button" addTask={() => console.log("add task clicked")}>ADD TASK</button>
+            </div>    
+        );
     }
 }

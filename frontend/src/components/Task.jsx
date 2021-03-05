@@ -6,8 +6,7 @@ export default function Task(props) {
         <div className="single-task">
             <p>{props.task.title}</p>
             <span>{props.task.status}</span>
-            {/* <input type="checkbox" className="taskCheck" /> */}
-            <button className="delete-button">x</button>
+            <button className="delete-button" onClick={() => console.log("delete task clicked")}>x</button>
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SingleStudent from './SingleStudent';
+import Group from './Group';
 
 class StudentList extends Component {
     constructor(props) {
@@ -7,29 +7,13 @@ class StudentList extends Component {
     }
 
     render() {
-        const { groups, students, onDeleteStudent } = this.props;
-
-        const editRoster = () => {
-            console.log("edit clicked")
-        }
-
-        const deleteStudent = (studentId, groupKey) => {
-            onDeleteStudent(studentId, groupKey)
-        }
+        const { groups, students, onDeleteStudent, onAddStudent } = this.props;
 
         return (
             <div className="StudentList">
                 <header>Students</header>
-                {Object.entries(groups).map(([k, group]) => (
-                    <div className="group-container">
-                        <header className="group-title">
-                            {group.title}
-                            <button className="add-button">+</button>
-                        </header>
-                        {group.studentIds.map(studentId => <SingleStudent onDelete={() => deleteStudent(studentId, k)} student={students[studentId]} />)}
-                    </div>
-                ))}
-                <button className="add-group-button" onClick={editRoster}>ADD GROUP</button>
+                {Object.entries(groups).map(([k, group]) => (<Group onDeleteStudent={onDeleteStudent} onAddStudent={onAddStudent} group={group} students={students} groupKey={k}/>))}
+                {<button className="add-button" onClick={() => console.log("add group clicked")}>ADD GROUP</button>}
             </div>
         );
     }

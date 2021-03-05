@@ -1,14 +1,14 @@
 # Questions
-- passsing student info to studentlist AND assignments
-    - is that structured properly
-- 
 
 
 # TODO
 
 ### High Priority
-- find way for faculty to edit groups (dragging seems too advanced)
+- add student to group list
+- add group to list
+- delete group (with students) in list
 
 ### Low Priority
-- created individual group class to simplify student list component
+- task list
+
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import FacultyDashboard from './FacultyDashboard'
-import StudentDashboard from './StudentHome'
+import StudentDashboard from './StudentDashboard'
 
 const defaultProps = {
   user: {
@@ -55,9 +55,14 @@ class ClassMain extends Component {
       this.setState(Object.assign({}, oldGroup.studentIds, oldGroup.studentIds = newIds))
     }
 
+    const addStudent = (studentId, groupKey) => {
+      console.log(studentId)
+      const old = groups[groupKey]
+      this.setState(Object.assign({}, old.studentIds, old.studentIds.push(studentId)))
+    }
 
     if (user.type === 'faculty') {
-      return <FacultyDashboard  onDeleteStudent={deleteStudent} groups={groups} students={students} tasks={tasks} assignments={assignments} />
+      return <FacultyDashboard  onDeleteStudent={deleteStudent} onAddStudent={addStudent} groups={groups} students={students} tasks={tasks} assignments={assignments} />
     } else {
       return <StudentDashboard />
     }

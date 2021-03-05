@@ -8,10 +8,11 @@ export class Assignment extends Component {
         this.state = {
             showComponent: false,
         };
-        this.editAssignment = this.editAssignment.bind(this);
+
+        this.showAssignment = this.showAssignment.bind(this);
     }
 
-    editAssignment() {
+    showAssignment() {
         this.setState({
             showComponent: !this.state.showComponent,
         });
@@ -22,12 +23,8 @@ export class Assignment extends Component {
         
         const authors = studentIds.map(id => students[id])
 
-        const editAssignment = () => {
-            this.props.onEdit()
-        }
-
         return (
-            <div className="Assignment" onClick={this.editAssignment}>
+            <div className="Assignment" onClick={this.showAssignment}>
                 <header>{title}</header>
                 {this.state.showComponent ?
                     <AssignmentDetail content={content} submitDate={submitDate} authors={authors}/> :
