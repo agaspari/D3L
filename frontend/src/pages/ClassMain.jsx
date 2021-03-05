@@ -29,17 +29,16 @@ class ClassMain extends Component {
         { title: "Edit student list.", status: "Complete" }
       ],
       assignments: {
-        10: {title: "Homework1", content: "Hello, this...", studentIds: [1, 2], submitDate: '2/3/21'},
-        11: {title: "Homework2", content: "Hello, this...", studentIds: [2, 4], submitDate: '2/6/21'},
-        12: {title: "Homework3", content: "Hello, this...", studentIds: [3, 1], submitDate: '2/8/21'},
-        13: {title: "Homework4", content: "Hello, this...", studentIds: [1], submitDate: '2/3/21'},
-        14: {title: "Homework5", content: "Hello, this...", studentIds: [2], submitDate: '2/4/21'},
-        15: {title: "Homework6", content: "Hello, this...", studentIds: [3], submitDate: '2/2/21'},
-        16: {title: "Homework7", content: "Hello, this...", studentIds: [1], submitDate: '2/3/21'},
-        17: {title: "Homework8", content: "Hello, this...", studentIds: [2], submitDate: '2/3/21'},
-        18: {title: "Homework9", content: "Hello, this...", studentIds: [3], submitDate: '2/3/21'}
-    }
-
+        10: { title: "Homework1", content: "Hello, this...", studentIds: [1, 2], submitDate: '2/3/21' },
+        11: { title: "Homework2", content: "Hello, this...", studentIds: [2, 4], submitDate: '2/6/21' },
+        12: { title: "Homework3", content: "Hello, this...", studentIds: [3, 1], submitDate: '2/8/21' },
+        13: { title: "Homework4", content: "Hello, this...", studentIds: [1], submitDate: '2/3/21' },
+        14: { title: "Homework5", content: "Hello, this...", studentIds: [2], submitDate: '2/4/21' },
+        15: { title: "Homework6", content: "Hello, this...", studentIds: [3], submitDate: '2/2/21' },
+        16: { title: "Homework7", content: "Hello, this...", studentIds: [1], submitDate: '2/3/21' },
+        17: { title: "Homework8", content: "Hello, this...", studentIds: [2], submitDate: '2/3/21' },
+        18: { title: "Homework9", content: "Hello, this...", studentIds: [3], submitDate: '2/3/21' }
+      }
     }
   }
 
@@ -56,13 +55,18 @@ class ClassMain extends Component {
     }
 
     const addStudent = (studentId, groupKey) => {
-      console.log(studentId)
-      const old = groups[groupKey]
-      this.setState(Object.assign({}, old.studentIds, old.studentIds.push(studentId)))
+      const oldGroup = groups[groupKey]
+      this.setState(Object.assign({}, oldGroup.studentIds, oldGroup.studentIds.push(studentId)))
     }
 
+    const addGroup = (title) => {
+      const newGroup = {33: {title: title, studentIds: []}}
+      this.setState(Object.assign({}, groups, newGroup))
+    }
+
+
     if (user.type === 'faculty') {
-      return <FacultyDashboard  onDeleteStudent={deleteStudent} onAddStudent={addStudent} groups={groups} students={students} tasks={tasks} assignments={assignments} />
+      return <FacultyDashboard  onDeleteStudent={deleteStudent} onAddStudent={addStudent} onAddGroup={addGroup} groups={groups} students={students} tasks={tasks} assignments={assignments} />
     } else {
       return <StudentDashboard />
     }
