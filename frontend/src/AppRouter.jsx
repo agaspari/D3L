@@ -8,6 +8,7 @@ import Page3 from './pages/Page3';
 import StudentDashboard from "./pages/StudentDashboard";
 import Class from './pages/Class';
 import CalendarPage from './pages/CalendarPage';
+import ClassMain from './pages/ClassMain';
 
 export const AppRouter = () => {
     return (
@@ -20,6 +21,7 @@ export const AppRouter = () => {
                 <Route exact path="/StudentDashboard" component={StudentDashboard} />
                 <Route exact path="/class/:id" component={Class} />
                 <Route exact path="/calendar" component={CalendarPage} />
+                <Route exact path="/class" component={ClassMain} />
             </div>
         </Router>
     );
