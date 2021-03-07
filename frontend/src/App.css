@@ -6,6 +6,10 @@
    margin: 30px;
  }
  
+.App {
+    text-align: center;
+}
+  
 .App-logo {
     height: 10vh;
     pointer-events: none;
@@ -335,4 +339,135 @@ background-color:yellow;
 
 .details_box{
     max-width:550px;
+}
+/* DASHBOARD */
+.FacultyDashboard {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  flex-basis: 0;
+  height: 80vh
+}
+
+/* TASKLIST */
+.TASKLIST {
+  flex: 1;
+  margin: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.single-task {
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 3px;
+}
+
+.task-content {
+  flex: auto;
+}
+
+/* STUDENTLIST */
+.StudentList {
+  flex: 1;
+  margin: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.StudentList header {
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.add-group-button {
+  font-weight: bold;;
+  color: darkgreen;
+  border: darkgreen;
+  background-color: white;
+  border-radius: 50%;
+  font-size: 12px;
+  float: center;
+}
+
+.group-title {
+  font-weight: bold;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 3px;
+}
+
+.SingleStudent { 
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 3px;
+}
+ 
+.SingleStudent span {
+  text-decoration: none;
+}
+
+.delete-button {
+  font-weight: bold;
+  color: darkred;
+  border: none;
+  background: none;
+  font-size: 12px;
+  float: right;
+}
+
+.add-button {
+  font-weight: bold;
+  color: darkgreen;
+  border: none;
+  background: none;
+  font-size: 12px;
+  float: right;
+}
+
+
+
+/* TOREVIEW */
+.ToReview {
+  flex: 1;
+  margin: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-top: 5px;
+  overflow-y: scroll;
+}
+
+.ToReview header {
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.Assignment {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 1px;
+  margin: 3px;
+}
+
+.Assignment header {
+  font-weight: bold;
+}
+
+/* TAB BUTTON */
+.tab-list {
+  border-bottom: 1px solid black;
+  padding-left: 0;
+}
+
+.tab-list-item {
+  font-weight: bold;
+  display: inline-block;
+  list-style: none;
+  margin-bottom: -1px;
+  padding: 0.5rem 0.75rem;
+}
+
+.tab-list-active {
+  background-color: lightgrey;
+  border-width: 1px 1px 0 1px;
 }
