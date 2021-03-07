@@ -4,10 +4,7 @@ class StudentForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { studentId: '' }
-
-        this.handleChange = this.handleChange.bind(this);
-        this.addStudent = this.addStudent.bind(this);
+        this.state = { studentId: 'default' }
     }
 
     handleChange(event) {
@@ -21,6 +18,7 @@ class StudentForm extends Component {
         const { groupKey } = this.props;
 
         this.props.onAddStudent(Number(studentId), groupKey);
+        this.setState({ studentId: 'default'})
     }
 
     render() {
@@ -30,17 +28,17 @@ class StudentForm extends Component {
         return (
             <form onSubmit={this.addStudent}>
                 <label>
-                    <select value={this.state.studentId} onChange={this.handleChange}>
-                        <option value="" selected disabled hidden>Choose here</option>
+                    <select value={this.state.studentId} onChange={(event) => this.handleChange(event)}>
+                        <option value='default' key='default' selected disabled hidden>Choose here</option>
                         {Object.entries(students).map(([id, student]) => {
                             if (!(group.studentIds.includes(Number(id)))) {
-                                return (<option value={id}>{id}: {student.fname} {student.lname}</option>)
+                                return (<option key={id} value={id}>{id}: {student.fname} {student.lname}</option>)
                             }
                         })
                         };
                     </select>
                 </label>
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Submit" disabled={!this.state.studentId} />
             </form>
         );
     }

@@ -15,7 +15,7 @@ export default class ToReview extends Component {
         return (
             <div className="ToReview">
                 <header>To Review</header>
-                {Object.keys(assignments).map(key => <Assignment onEdit={onEditAssignment} assignment={assignments[key]} students={students}/>)}
+                {Object.entries(assignments).map(([id, assignment]) => <Assignment onEdit={onEditAssignment} assignment={assignment} key={id} students={students}/>)}
             </div>
         )
     }
