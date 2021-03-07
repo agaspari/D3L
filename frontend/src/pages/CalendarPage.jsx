@@ -14,6 +14,7 @@ export default class CalendarPage extends React.Component {
         return (
             <div>
                 <h1>D3L</h1>
+                <p>{pageName}</p>
                 <Calendar calendarType = "US" locale = "en-US" />
             </div>
         ); 

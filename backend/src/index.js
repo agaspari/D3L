@@ -6,8 +6,21 @@ import api from './api';
 import middleware from './middleware';
 import { initalizeConnection } from './util/database';
 
-/* Express Setup */
+const io = require("socket.io")(3005, {
+	cors: {
+		origin: "*",
+	}
+});
+io.on("connection", socket => { 
+	socket.on("chat_send", message => {
+		console.log(message);
+		socket.broadcast.emit("chat_received", message);
+	});
+});
 
+
+
+/* Express Setup */
 const app = express();
 const PORT = config.expressSettings.port;
 app.use(bodyParser.urlencoded({ extended: true }));
