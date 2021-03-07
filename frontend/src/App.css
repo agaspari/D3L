@@ -1,5 +1,11 @@
 
-  
+ html,body,.calendar-container{
+   height:100%;
+ }
+ .calendar-container {
+   margin: 30px;
+ }
+ 
 .App-logo {
     height: 10vh;
     pointer-events: none;
