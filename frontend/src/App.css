@@ -1,4 +1,11 @@
 
+ html,body,.calendar-container{
+   height:100%;
+ }
+ .calendar-container {
+   margin: 30px;
+ }
+ 
 .App {
     text-align: center;
 }
