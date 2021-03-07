@@ -43,32 +43,33 @@ class App extends Component {
                             // you can use your own router's api to get pathname
                             activeItemId="/management/members"
                             onSelect={({itemId}) => {
-                                window.location.href = itemId;
+                                if (itemId) {
+                                    window.location.href = itemId;
+                                }
                             }}
                             items={[
                                 {
                                     title: 'Dashboard',
-                                    itemId: '/dashboard',
+                                    itemId: '/StudentDashboard',
                                 },
                                 {
                                     title: 'Classes',
-                                    itemId: '/management',
                                     subNav: [
                                         {
-                                        title: 'CSC 300',
-                                        itemId: '/management/projects',
+                                            title: 'Class 1',
+                                            itemId: '/class/1',
                                         },
                                         {
-                                        title: 'CSC 299',
-                                        itemId: '/management/projects',
+                                            title: 'Class 2',
+                                            itemId: '/class/2',
                                         },
                                         {
-                                        title: 'ENV 101',
-                                        itemId: '/management/projects',
+                                            title: 'Class 2',
+                                            itemId: '/class/3',
                                         },
                                         {
-                                        title: 'CSC 347',
-                                        itemId: '/management/members',
+                                            title: 'Class 3',
+                                            itemId: '/class/4',
                                         },
                                     ],
                                 },

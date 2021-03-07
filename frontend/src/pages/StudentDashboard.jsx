@@ -14,9 +14,7 @@ export default class StudentDashboard extends React.Component {
         const { pageName } = this.state;
 
         return (
-
-            <div>
-
+            <div className="classes">
                 <h1>D3L</h1>
                 <p>{pageName}</p>
                 <div className="row">

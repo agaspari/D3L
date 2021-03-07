@@ -9,7 +9,15 @@
 .App {
     text-align: center;
 }
-  
+
+.classes, .classes > * {
+  text-align: center;
+}
+
+.classCard { 
+  padding: 10px;
+}
+
 .App-logo {
     height: 10vh;
     pointer-events: none;
