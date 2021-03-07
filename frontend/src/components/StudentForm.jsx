@@ -18,7 +18,7 @@ class StudentForm extends Component {
         const { groupKey } = this.props;
 
         this.props.onAddStudent(Number(studentId), groupKey);
-        this.setState({ studentId: 'default'})
+        this.setState({ studentId: 'default' })
     }
 
     render() {
