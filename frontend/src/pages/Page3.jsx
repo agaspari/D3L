@@ -4,7 +4,7 @@ export default class Page3 extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            pageName: "Page 3"
+            pageName: "Page 3 test"
         };
     }
 
