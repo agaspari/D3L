@@ -57,6 +57,7 @@ class ClassMain extends Component {
     }
 
     const addStudent = (studentId, groupKey) => {
+      console.log(studentId, groupKey)
       const oldGroup = groups[groupKey]
       const newStudentIds = oldGroup.studentIds.concat([studentId])
       const newGroup = Object.assign({}, oldGroup, {studentIds: newStudentIds})
@@ -66,6 +67,7 @@ class ClassMain extends Component {
 
     const addGroup = (title) => {
       const newKey = Math.max(...Object.keys(groups).map(group => Number(group))) + 1
+      console.log(title)
       const newGroup = {title, studentIds: []}
       const newGroups = Object.assign({}, groups, {[newKey]: newGroup})
       this.setState({groups: newGroups})
