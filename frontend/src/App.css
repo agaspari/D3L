@@ -1,14 +1,49 @@
 
- html,body,.calendar-container{
-   height:100%;
- }
- .calendar-container {
-   margin: 30px;
- }
- 
 .App {
-    text-align: center;
+  text-align: center;
+  background-color: #0E1E40;
+  display: flex;
+  height: 100vh;
 }
+
+.App-logo {
+  width: 10vh;
+  pointer-events: none;
+  position: absolute;
+  left: 4vh;
+  padding: 10px;
+}
+
+.App-header {
+  background-color: white;
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #364050;
+}
+
+#sidebar{
+  float:left;
+  background-color: #bd2130;
+  height: 100vh;
+}
+
+html,body,.calendar-container{
+  height:100%;
+}
+
+.calendar-container {
+  margin: 5vh;
+  background-color: white;
+}
+
+.react-calendar {
+ margin: auto;
+}
+
 
 .classes, .classes > * {
   text-align: center;
@@ -16,14 +51,6 @@
 
 .classCard { 
   padding: 10px;
-}
-
-.App-logo {
-    height: 10vh;
-    pointer-events: none;
-    position: absolute;
-    left: 10px;
-    padding: 10px;
 }
 
 .urls {
@@ -41,29 +68,15 @@
     text-decoration: none;
 }
 
-.App-header {
-    background-color: white;
-    min-height: 10vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    color: #364050;
-    border-bottom: 1px solid grey;
-}
+
   
 .App-link {
     color: #61dafb;
 }
 
-.react-calendar {
-    margin: auto;
-}
 
-#sidebar{
-    float:left;
-}
+
+
 
 
 h2 {
@@ -346,10 +359,12 @@ background-color:yellow;
 .details_box{
     max-width:550px;
 }
+
+
 /* DASHBOARD */
 .FacultyDashboard {
   display: flex;
-  width: 100%;
+  width: 100vh;
   justify-content: space-evenly;
   flex-basis: 0;
   height: 80vh
@@ -358,9 +373,10 @@ background-color:yellow;
 /* TASKLIST */
 .TASKLIST {
   flex: 1;
-  margin: 5px;
+  margin: 1vh;
   border: 1px solid black;
   border-radius: 5px;
+  background: white;
 }
 
 .single-task {
@@ -376,9 +392,10 @@ background-color:yellow;
 /* STUDENTLIST */
 .StudentList {
   flex: 1;
-  margin: 5px;
+  margin: 1vh;
   border: 1px solid black;
   border-radius: 5px;
+  background: white;
 }
 
 .StudentList header {
@@ -436,11 +453,11 @@ background-color:yellow;
 /* TO REVIEW */
 .ToReview {
   flex: 1;
-  margin: 5px;
+  margin: 1vh;
   border: 1px solid black;
   border-radius: 5px;
-  margin-top: 5px;
   overflow-y: scroll;
+  background: white;
 }
 
 .ToReview header {
