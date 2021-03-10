@@ -9,8 +9,6 @@ class Group extends Component {
         this.state = {
             showComponent: false,
         }
-
-        this.showStudentForm = this.showStudentForm.bind(this);
     }
 
     showStudentForm() {
@@ -26,14 +24,11 @@ class Group extends Component {
             onDeleteStudent(studentId, groupKey)
         }
 
-        const notInGroup = Object.keys(students).filter(k => group.studentIds.includes(k))
-
-
         return (
             <div className="group-container">
                 <header className="group-title">
                     {group.title}
-                    <button className="add-button" onClick={this.showStudentForm}>+</button>
+                    <button className="add-button" onClick={()=>this.showStudentForm()}>+</button>
                 </header>
                 {group.studentIds.map(studentId => <SingleStudent onDeleteStudent={() => deleteStudent(studentId, groupKey)} student={students[studentId]} />)}
                 {this.state.showComponent ?
