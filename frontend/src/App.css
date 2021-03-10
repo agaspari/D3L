@@ -1,14 +1,49 @@
 
- html,body,.calendar-container{
-   height:100%;
- }
- .calendar-container {
-   margin: 30px;
- }
- 
 .App {
-    text-align: center;
+  text-align: center;
+  background-color: #0E1E40;
+  display: flex;
+  height: 100vh;
 }
+
+.App-logo {
+  width: 10vh;
+  pointer-events: none;
+  position: absolute;
+  left: 4vh;
+  padding: 10px;
+}
+
+.App-header {
+  background-color: white;
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #364050;
+}
+
+#sidebar{
+  float:left;
+  background-color: #bd2130;
+  height: 100vh;
+}
+
+html,body,.calendar-container{
+  height:100%;
+}
+
+.calendar-container {
+  margin: 5vh;
+  background-color: white;
+}
+
+.react-calendar {
+ margin: auto;
+}
+
 
 .classes, .classes > * {
   text-align: center;
@@ -16,14 +51,6 @@
 
 .classCard { 
   padding: 10px;
-}
-
-.App-logo {
-    height: 10vh;
-    pointer-events: none;
-    position: absolute;
-    left: 10px;
-    padding: 10px;
 }
 
 .urls {
@@ -41,34 +68,17 @@
     text-decoration: none;
 }
 
-.App-header {
-    background-color: white;
-    min-height: 10vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    color: #364050;
-    border-bottom: 1px solid grey;
-}
+
   
 .App-link {
     color: #61dafb;
 }
 
-.react-calendar {
-    margin: auto;
-}
-
-#sidebar{
-    float:left;
-}
 
 
 
 
-h1,
+
 h2 {
   margin-bottom: 0;
   font-size: 20px;
@@ -77,7 +87,7 @@ ul {
   list-style: none;
   padding: 0;
 }
-button {
+/* button {
   border: none;
   margin: 0;
   padding: 0;
@@ -90,11 +100,11 @@ button {
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-}
-button::-moz-focus-inner {
+} */
+/* button::-moz-focus-inner {
   border: 0;
-}
-button,
+} */
+/* button, */
 input,
 optgroup,
 select,
@@ -103,7 +113,7 @@ textarea {
   line-height: 1.15;
   margin: 0;
 }
-button,
+
 input {
   overflow: visible;
 }
@@ -261,7 +271,7 @@ font-size: 14px;
   width: 100%;
   margin: unset auto;
 }
-/* Todo item styles */
+/* TODO ITEM */
 .todo {
   display: flex;
   flex-direction: row;
@@ -278,6 +288,7 @@ font-size: 14px;
 .todo-text:focus {
   box-shadow: inset 0 0 0 2px;
 }
+
 /* CHECKBOX STYLES */
 .c-cb {
 
@@ -348,10 +359,12 @@ background-color:yellow;
 .details_box{
     max-width:550px;
 }
+
+
 /* DASHBOARD */
 .FacultyDashboard {
   display: flex;
-  width: 100%;
+  width: 100vh;
   justify-content: space-evenly;
   flex-basis: 0;
   height: 80vh
@@ -360,9 +373,10 @@ background-color:yellow;
 /* TASKLIST */
 .TASKLIST {
   flex: 1;
-  margin: 5px;
+  margin: 1vh;
   border: 1px solid black;
   border-radius: 5px;
+  background: white;
 }
 
 .single-task {
@@ -378,9 +392,10 @@ background-color:yellow;
 /* STUDENTLIST */
 .StudentList {
   flex: 1;
-  margin: 5px;
+  margin: 1vh;
   border: 1px solid black;
   border-radius: 5px;
+  background: white;
 }
 
 .StudentList header {
@@ -435,14 +450,14 @@ background-color:yellow;
 
 
 
-/* TOREVIEW */
+/* TO REVIEW */
 .ToReview {
   flex: 1;
-  margin: 5px;
+  margin: 1vh;
   border: 1px solid black;
   border-radius: 5px;
-  margin-top: 5px;
   overflow-y: scroll;
+  background: white;
 }
 
 .ToReview header {
@@ -478,4 +493,86 @@ background-color:yellow;
 .tab-list-active {
   background-color: lightgrey;
   border-width: 1px 1px 0 1px;
+}
+
+/* PROFILE */
+.profile-page {
+  flex: 1;
+}
+
+
+/* == LOGIN / REGISTER == */
+
+.Login {
+  display: flex;
+  height: 100vh;
+}
+
+.login-container {
+  flex: 1; 
+  background: #0E1E40;
+  padding-top: 25vh;
+}
+
+.login-container h1 {
+  color: #707070;
+  font-size: 8vh;
+  font-weight: bold;
+}
+
+.Login input[type="text"],[type="email"],[type="password"] {
+  width: 35vh;
+  border: none;
+  margin-top: 2vh;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  padding: 1vh;
+}
+
+.Login input[type="radio"] {
+  margin-top: 1vh;
+  font-size: 5vh;
+}
+
+.usertype-buttons Label {
+  margin: 3vh 3vh 0 1vh ;
+  font-size: 2vh;
+  color: white;
+}
+
+.login-button {
+  background-color: #C0342B;
+  border: none;
+  color: white;
+  padding: 1vh 10vh;
+  text-align: center;
+  display: inline-block;
+  border-radius: 16px;
+  margin-bottom: 3vh;
+  margin-top: 3vh;
+}
+
+.logo-container {
+  flex: 1; 
+  background: white;
+  padding-top: 25vh;
+}
+
+.logo-container img {
+  height: 30vh;
+  width: auto;
+}
+
+.login-register-option {
+  color: white;
+  font-size: 1.5vh;
+}
+
+.login-register-option a {
+  color: #2ac5ff;
+  font-size: 1.5vh;
+}
+
+.error {
+  color: white;
+  padding-bottom: 2vh;
 }

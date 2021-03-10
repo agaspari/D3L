@@ -50,21 +50,29 @@ class ClassMain extends Component {
 
     const deleteStudent = (studentId, groupKey) => {
       const oldGroup = groups[groupKey]
-      const newIds = oldGroup.studentIds.filter(id => id !== studentId)
-      this.setState(Object.assign({}, oldGroup.studentIds, oldGroup.studentIds = newIds))
+      const newStudentIds = oldGroup.studentIds.filter(id => id !== studentId)
+      const newGroup = Object.assign({}, oldGroup, {studentIds: newStudentIds})
+      const newGroups = Object.assign({}, groups, {[groupKey]: newGroup})
+      this.setState({groups: newGroups})
     }
 
     const addStudent = (studentId, groupKey) => {
+      console.log(studentId, groupKey)
       const oldGroup = groups[groupKey]
-      this.setState(Object.assign({}, oldGroup.studentIds, oldGroup.studentIds.push(studentId)))
+      const newStudentIds = oldGroup.studentIds.concat([studentId])
+      const newGroup = Object.assign({}, oldGroup, {studentIds: newStudentIds})
+      const newGroups = Object.assign({}, groups, {[groupKey]: newGroup})
+      this.setState({groups: newGroups})
     }
 
     const addGroup = (title) => {
-      const newGroup = {33: {title: title, studentIds: []}}
-      this.setState(Object.assign({}, groups, newGroup))
+      const newKey = Math.max(...Object.keys(groups).map(group => Number(group))) + 1
+      console.log(title)
+      const newGroup = {title, studentIds: []}
+      const newGroups = Object.assign({}, groups, {[newKey]: newGroup})
+      this.setState({groups: newGroups})
     }
-
-
+    
     if (user.type === 'faculty') {
       return <FacultyDashboard  onDeleteStudent={deleteStudent} onAddStudent={addStudent} onAddGroup={addGroup} groups={groups} students={students} tasks={tasks} assignments={assignments} />
     } else {

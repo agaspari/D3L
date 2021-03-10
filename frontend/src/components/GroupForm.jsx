@@ -5,8 +5,6 @@ class GroupForm extends Component {
         super(props);
 
         this.state = {title: ''}
-
-        this.handleChange = this.handleChange.bind(this);
     };
 
     handleChange(event) {
@@ -24,7 +22,7 @@ class GroupForm extends Component {
             <form onSubmit={this.addGroup}>
                 <label>
                     Group Title:
-                    <input type="text" value={this.state.title} onChange={this.handleChange} />
+                    <input type="text" value={this.state.title} onChange={(event) => this.handleChange(event)} />
                 </label>
                 <input type="submit" value="Submit" />
             </form>
