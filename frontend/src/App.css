@@ -479,3 +479,8 @@ background-color:yellow;
   background-color: lightgrey;
   border-width: 1px 1px 0 1px;
 }
+
+/* PROFILE */
+.profile-page {
+  flex: 1;
+}

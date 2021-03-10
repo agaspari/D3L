@@ -6,8 +6,9 @@ import StudentDashboard from "./pages/StudentDashboard";
 import Class from './pages/Class';
 import CalendarPage from './pages/CalendarPage';
 import ClassMain from './pages/ClassMain';
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Profile from './pages/Profile';
 
 export const AppRouter = () => {
     
@@ -21,6 +22,7 @@ export const AppRouter = () => {
                 <Route exact path="/class" component={ClassMain} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
+                <Route exact path="/profile" component={Profile} />
             </div>
         </Router>
     );
