@@ -10,7 +10,10 @@ export default class Register extends React.Component {
         this.state = {
             email: "",
             password: "",
-            error: ""
+            error: "",
+            usertype: "",
+            fname: "",
+            lname: ""
         };
     }
 
@@ -18,13 +21,13 @@ export default class Register extends React.Component {
 
     createUserWithEmailAndPasswordHandler = async (event) => {
         event.preventDefault();
-        const { displayName, email, password } = this.state;
+        const { displayName, email, password, usertype, fname, lname } = this.state;
 
         try {
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
             generateUserDocument(user, { displayName });
-            this.setState({ displayName: '', email: '', password: '' });
-        } catch(error) {
+            this.setState({ displayName: '', email: '', password: '', fname: '', lname: '', usertype: '' });
+        } catch (error) {
             this.setState({ error: error.message, password: '' });
         }
     };
@@ -36,15 +39,15 @@ export default class Register extends React.Component {
     }
 
     render() {
-        const { email, password, error } = this.state;
+        const { email, password, fname, lname, usertype, error } = this.state;
         return (
             <div>
                 <h1>Register</h1>
                 <form onSubmit={this.createUserWithEmailAndPasswordHandler}>
                     <input
-                        value={email}
                         onChange={e => this.onChange(e)}
                         name="email"
+                        value={email}
                         type="email"
                         placeholder="email"
                     />
@@ -55,12 +58,41 @@ export default class Register extends React.Component {
                         type="password"
                         placeholder="password"
                     />
+                    <input
+                        onChange={e => this.onChange(e)}
+                        name="fname"
+                        value={fname}
+                        type="text"
+                        placeholder="first name"
+                    />
+                    <input
+                        onChange={e => this.onChange(e)}
+                        name="lname"
+                        value={lname}
+                        type="text"
+                        placeholder="last name"
+                    />
+                    <div>
+                        <input
+                            type="radio"
+                            id="radiobutton1"
+                            name="usertype"
+                            value="faculty" />
+                        <label for="radiobutton1">Faculty</label>
+                        <input
+                            type="radio"
+                            id="radiobutton2"
+                            name="usertype"
+                            value="student" />
+                        <label for="radiobutton2">Student</label>
+
+                    </div>
                     <hr />
                     <button type="submit">Register</button>
-            
+
                     <span>{error}</span>
                 </form>
             </div>
-        ); 
+        );
     }
 }
