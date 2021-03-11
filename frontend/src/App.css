@@ -6,6 +6,11 @@
   height: 100vh;
 }
 
+.App > div, .main, .main > div {
+  width: 100%;
+
+}
+
 .App-logo {
   width: 10vh;
   pointer-events: none;
@@ -509,7 +514,7 @@ background-color:yellow;
 }
 
 .login-container {
-  flex: 1; 
+  flex: 3 1; 
   background: #0E1E40;
   padding-top: 25vh;
 }
