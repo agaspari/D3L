@@ -1,12 +1,10 @@
 import React, { useState, useContext } from "react";
-// import { AuthContext } from "../index";
-import firebase from 'firebase/app'
 import { auth, signInWithGoogle } from "../firebase";
 import { UserContext } from "../UserProvider";
 import logo from "../logo.svg";
 
 export default class Login extends React.Component {
-    static contextType = UserContext; // Todo: Figure out how this works exactly. (ReactJS Context)
+    static contextType = UserContext;
 
     constructor(props) {
         super(props);
@@ -24,7 +22,10 @@ export default class Login extends React.Component {
 
         const { email, password } = this.state;
 
-        auth.signInWithEmailAndPassword(email, password).catch(error => {
+        auth.signInWithEmailAndPassword(email, password)
+        .then((user) => {
+            window.location.replace("/dashboard");
+        }).catch(error => {
             this.setState({ error });
             console.error("Error signing in with password and email", error);
         });
@@ -50,7 +51,7 @@ export default class Login extends React.Component {
                             onChange={e => this.onChange(e)}
                             name="email"
                             type="email"
-                            placeholder="email"
+                            placeholder="Email"
                         />
                         <br/>
                         <input
@@ -58,7 +59,7 @@ export default class Login extends React.Component {
                             name="password"
                             value={password}
                             type="password"
-                            placeholder="password"
+                            placeholder="Password"
                         />
                         <br/>
                         <button className="login-button" type="submit">Login</button>

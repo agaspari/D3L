@@ -21,7 +21,7 @@ export default class ClassCard extends React.Component {
           ];
 
         return (
-            <div className="col-md-6 d-flex justify-content-center classCard">
+            <div className="col-md-3 d-flex justify-content-center classCard">
                 <Card style={{ width: '80%' }}>
                     <Card.Img variant="top" style={{ height: '50%'}} src={image} />
                     <Card.Body>

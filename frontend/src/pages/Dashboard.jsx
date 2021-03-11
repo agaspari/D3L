@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import FacultyDashboard from './FacultyDashboard'
 import StudentDashboard from './StudentDashboard'
+import { UserContext } from "../UserProvider";
+
 
 const defaultProps = {
   user: {
@@ -8,7 +10,9 @@ const defaultProps = {
   }
 }
 
-class ClassMain extends Component {
+export default class Dashboard extends Component {
+  static contextType = UserContext;
+
   constructor(props) {
     super(props)
 
@@ -57,28 +61,29 @@ class ClassMain extends Component {
     }
 
     const addStudent = (studentId, groupKey) => {
-      console.log(studentId, groupKey)
-      const oldGroup = groups[groupKey]
-      const newStudentIds = oldGroup.studentIds.concat([studentId])
-      const newGroup = Object.assign({}, oldGroup, {studentIds: newStudentIds})
-      const newGroups = Object.assign({}, groups, {[groupKey]: newGroup})
-      this.setState({groups: newGroups})
+        console.log(studentId, groupKey)
+        const oldGroup = groups[groupKey]
+        const newStudentIds = oldGroup.studentIds.concat([studentId])
+        const newGroup = Object.assign({}, oldGroup, {studentIds: newStudentIds})
+        const newGroups = Object.assign({}, groups, {[groupKey]: newGroup})
+        this.setState({groups: newGroups})
     }
 
     const addGroup = (title) => {
-      const newKey = Math.max(...Object.keys(groups).map(group => Number(group))) + 1
-      console.log(title)
-      const newGroup = {title, studentIds: []}
-      const newGroups = Object.assign({}, groups, {[newKey]: newGroup})
-      this.setState({groups: newGroups})
+        const newKey = Math.max(...Object.keys(groups).map(group => Number(group))) + 1
+        console.log(title)
+        const newGroup = {title, studentIds: []}
+        const newGroups = Object.assign({}, groups, {[newKey]: newGroup})
+        this.setState({groups: newGroups})
     }
     
-    if (user.type === 'faculty') {
-      return <FacultyDashboard  onDeleteStudent={deleteStudent} onAddStudent={addStudent} onAddGroup={addGroup} groups={groups} students={students} tasks={tasks} assignments={assignments} />
+    if (!this.context) {
+        this.props.history.push("/login");
+    }
+    if (this.context.isFaculty) {
+        return <FacultyDashboard  onDeleteStudent={deleteStudent} onAddStudent={addStudent} onAddGroup={addGroup} groups={groups} students={students} tasks={tasks} assignments={assignments} />
     } else {
-      return <StudentDashboard />
+        return <StudentDashboard />
     }
   }
 }
-
-export default ClassMain;

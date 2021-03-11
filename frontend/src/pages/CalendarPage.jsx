@@ -35,8 +35,6 @@ export default class CalendarPage extends React.Component {
     }
 
     render() {
-        
-
         return (
             <div style={{ height: '600px'}}>
                 <div className="calendar-container">

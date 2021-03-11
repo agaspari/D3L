@@ -104,8 +104,6 @@ function usePrevious(value) {
       }
     }, [tasks.length, prevTaskLength]);
   
-
-    
     return (
         <div>
       <div className="todoapp stack-large">

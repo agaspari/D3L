@@ -45,6 +45,12 @@ html,body,.calendar-container{
   background-color: white;
 }
 
+.content-container, .content-container > div {
+  text-align: center;
+  justify-content: center;
+  color: white;
+}
+
 .react-calendar {
  margin: auto;
 }
@@ -372,7 +378,10 @@ background-color:yellow;
   width: 100vh;
   justify-content: space-evenly;
   flex-basis: 0;
-  height: 80vh
+  height: 80vh;
+  width: 75%;
+  margin: auto;
+  padding: 5px;
 }
 
 /* TASKLIST */

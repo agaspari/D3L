@@ -12,9 +12,9 @@ export default class Register extends React.Component {
             email: "",
             password: "",
             error: "",
-            usertype: "",
-            fname: "",
-            lname: ""
+            usertype: false,
+            firstname: "",
+            lastname: ""
         };
     }
 
@@ -22,12 +22,12 @@ export default class Register extends React.Component {
 
     createUserWithEmailAndPasswordHandler = async (event) => {
         event.preventDefault();
-        const { email, password, usertype, fname, lname } = this.state;
+        const { email, password, usertype, firstname, lastname } = this.state;
 
         try {
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
-            generateUserDocument(user, { usertype, fname, lname, });
-            this.setState({ email: '', password: '', fname: '', lname: '', usertype: '' });
+            generateUserDocument(user, { isFaculty: usertype, firstname, lastname, });
+            this.setState({ email: '', password: '', firstname: '', lastname: '', usertype: '' });
         } catch (error) {
             this.setState({ error: error.message, password: '' });
         }
@@ -45,7 +45,7 @@ export default class Register extends React.Component {
 
 
     render() {
-        const { email, password, fname, lname, error, usertype } = this.state;
+        const { email, password, firstname, lastname, error, usertype } = this.state;
         return (
             <div className="Login">
                 <div className="login-container">
@@ -69,16 +69,16 @@ export default class Register extends React.Component {
                         <br/>
                         <input
                             onChange={e => this.onChange(e)}
-                            name="fname"
-                            value={fname}
+                            name="firstname"
+                            value={firstname}
                             type="text"
                             placeholder="First Name"
                         />
                         <br/>
                         <input
                             onChange={e => this.onChange(e)}
-                            name="lname"
-                            value={lname}
+                            name="lastname"
+                            value={lastname}
                             type="text"
                             placeholder="Last Name"
                         />
@@ -88,18 +88,18 @@ export default class Register extends React.Component {
                                 type="radio"
                                 id="radio-faculty"
                                 name="usertype"
-                                value={usertype}
-                                onSelect={() => this.onSelect(true)}
+                                checked={usertype}
+                                onChange={() => this.onSelect(true)}
                             />
-                            <label for="radio-faculty">Faculty</label>
+                            <label htmlFor="radio-faculty">Faculty</label>
                             <input
                                 type="radio"
                                 id="radio-student"
                                 name={"usertype"}
-                                value={!usertype}
-                                onSelect={() => this.onSelect(true)}
+                                checked={!usertype}
+                                onChange={() => this.onSelect(false)}
                             />
-                            <label for="radio-student">Student</label>
+                            <label htmlFor="radio-student">Student</label>
                         </div>
                         <button className="login-button" type="submit">Register</button>
                         <br/>
