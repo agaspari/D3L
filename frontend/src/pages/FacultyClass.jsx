@@ -52,25 +52,60 @@ export default class FacultyClass extends React.Component {
 
     addStudent = (studentId, groupKey) => {
         const { groups } = this.state;
+        const { classId } = this.props;
 
-        const oldGroup = groups[groupKey]
-        const newStudentIds = oldGroup.studentIds.concat([studentId])
-        const newGroup = Object.assign({}, oldGroup, {studentIds: newStudentIds})
-        const newGroups = Object.assign({}, groups, {[groupKey]: newGroup})
-        this.setState({groups: newGroups})
+        groups[groupKey].studentIds.push(studentId);
+
+        fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/group/addMember`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                classId: classId,
+                userId: "6J9z0pZRcohatGP3CBvWuTjpuFD2",
+                groupId: 1
+            })
+        });
+        this.setState({groups})
     }
 
     addGroup = (title) => {
         const { groups } = this.state;
+        const { classId } = this.props;
 
-        const newKey = Math.max(...Object.keys(groups).map(group => Number(group))) + 1
-        const newGroup = {title, studentIds: []}
-        const newGroups = Object.assign({}, groups, {[newKey]: newGroup})
-        this.setState({groups: newGroups})
+        fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/group/create`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                classId
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            groups[data.key] = {
+                title: "GROUP " + data.key,
+                studentIds: [],
+            }
+            //const newKey = Math.max(...Object.keys(groups).map(group => Number(group))) + 1
+            // const newGroup = {title, studentIds: []}
+            // const newGroups = Object.assign({}, groups, {[newKey]: newGroup})
+            this.setState({ groups })
+        });
     }
     
     editAssignment = () => {
 
+    }
+
+    componentDidMount() {
+        const { classId } = this.props;
+
+        fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/group/${classId}`, {
+            method: "GET"
+        })
     }
 
     render() {

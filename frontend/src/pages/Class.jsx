@@ -14,10 +14,20 @@ export default class Class extends React.Component {
     }
 
     render() {
+        const { id } = this.props.match.params;
+
         if (this.context.isFaculty) {
-            return <FacultyClass/>;
+            return (
+                <FacultyClass
+                    classId={id}
+                />
+            );
         } else {
-            return <StudentClass/>
+            return (
+                <StudentClass
+                    classId={id}
+                />
+            );
         }
     }
 }

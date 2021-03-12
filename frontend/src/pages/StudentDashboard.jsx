@@ -36,7 +36,7 @@ export default class StudentDashboard extends React.Component {
                         classes.forEach((class_, index) => (
                             <ClassCard
                                 title={class_.title}
-                                id={index}
+                                id={class_.classId}
                                 image="https://newevolutiondesigns.com/images/freebies/cool-wallpaper-1.jpg"
                             />
                         ))

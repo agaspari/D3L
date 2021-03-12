@@ -21,7 +21,7 @@ export default class FacultyDashboard extends Component {
 
     createClass = () => {
         const { className } = this.state;
-        fetch (`${window.location.protocol}//${window.location.hostname}:4000/api/faculty/class/create/`, {
+        fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/faculty/class/create/`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -44,7 +44,7 @@ export default class FacultyDashboard extends Component {
     }
     
     componentDidMount() {
-        fetch (`${window.location.protocol}//${window.location.hostname}:4000/api/faculty/classes/${this.context.uid}`, {
+        fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/faculty/classes/${this.context.uid}`, {
             method: "GET",
         })
         .then(res => res.json())
@@ -79,7 +79,7 @@ export default class FacultyDashboard extends Component {
                             <ClassCard
                                 title={class_.className}
                                 classCode={class_.classCode}
-                                id={index}
+                                id={class_.classId}
                                 image="https://newevolutiondesigns.com/images/freebies/cool-wallpaper-1.jpg"
                             />
                         ))}
