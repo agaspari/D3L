@@ -34,45 +34,52 @@ class ProfilePage extends Component {
     }
 
     render() {
-        const {student, isEditing} = this.state;
-        const {fname, lname, password, email} = student;
+        const { student, isEditing } = this.state;
+        const { fname, lname, password, email } = student;
 
         return (
-            <div>
+            <div className="ProfilePage">
+                {/* <img></img> */}
                 <form onSubmit={this.handleButton}>
-                    <label>First name:</label>
-                    <input 
-                        type="text" 
-                        name="fname" 
-                        value={fname}
-                        onChange={(e) => this.onChange(e)} 
-                        disabled={!isEditing}/><br/>
-                    <label for="lname">Last name:</label>
-                    <input type="text" 
-                        id="lname"
-                        name="lname"
-                        value={lname}
-                        onChange={(e) => this.onChange(e)} 
-                        disabled={!isEditing}/><br/>
-                    <label for="email">Email address:</label>
-                    <input type="text" 
-                        id="email" 
-                        name="email" 
-                        value={email}
-                        onChange={(e) => this.onChange(e)} 
-                        disabled={!isEditing}/><br/>
-                    <label for="password">Password:</label>
-                    <input type="password" 
-                        id="password" 
-                        name="password" 
-                        value={password}
-                        onChange={(e) => this.onChange(e)} 
-                        disabled={!isEditing}/><br/>
+                    <p>
+                        <label>First name:</label>
+                        <input
+                            type="text"
+                            name="fname"
+                            value={fname}
+                            onChange={(e) => this.onChange(e)}
+                            disabled={!isEditing} />
+                    </p>
+                    <p>
+                        <label for="lname">Last name:</label>
+                        <input type="text"
+                            id="lname"
+                            name="lname"
+                            value={lname}
+                            onChange={(e) => this.onChange(e)}
+                            disabled={!isEditing} />
+                    </p>
+                    <p>
+                        <label for="email">Email:</label>
+                        <input type="text"
+                            id="email"
+                            name="email"
+                            value={email}
+                            onChange={(e) => this.onChange(e)}
+                            disabled={!isEditing} />
+                    </p>
+                    <p>
+                        <label for="password">Password:</label>
+                        <input type="password"
+                            id="password"
+                            name="password"
+                            value={password}
+                            onChange={(e) => this.onChange(e)}
+                            disabled={!isEditing} />
+                    </p>
                     <span>
-                        {isEditing ? <input type="submit" value="Save"/> : <input type="submit" value="Edit"/>}
-                        
+                        {isEditing ? <input type="submit" value="Save" /> : <input type="submit" value="Edit" />}
                     </span>
-                    
                 </form>
             </div>
         )
