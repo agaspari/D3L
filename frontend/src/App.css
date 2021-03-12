@@ -1,17 +1,22 @@
+:root {
+  --darkblue: #0E1E40;
+  --red: #CD1B21;
+  --teal: #2AC5FF;
+}
 
 .App {
   text-align: center;
-  background-color: #0E1E40;
+  background-color: var(--darkblue);
   display: flex;
   height: 100vh;
 }
 
 .App-logo {
-  width: 10vh;
+  height: 12vh;
   pointer-events: none;
   position: absolute;
-  left: 4vh;
-  padding: 10px;
+  left: 8vh;
+  padding: 1vh;
 }
 
 .App-header {
@@ -27,7 +32,7 @@
 
 #sidebar{
   float:left;
-  background-color: #bd2130;
+  background-color: var(--red);
   height: 100vh;
 }
 
@@ -71,13 +76,8 @@ html,body,.calendar-container{
 
   
 .App-link {
-    color: #61dafb;
+    color: var(--teal);
 }
-
-
-
-
-
 
 h2 {
   margin-bottom: 0;
@@ -122,12 +122,12 @@ input[type="text"] {
   border-radius: 0;
 }
 body {
-   
   margin: 0 auto;
   font: 1.6rem/1.25 Arial, sans-serif;
   background-color: #f5f5f5;
   color: #364050;
 }
+
 @media screen and (min-width: 620px) {
   body {
     font-size: 14px;
@@ -371,18 +371,19 @@ background-color:yellow;
 }
 
 /* TASKLIST */
-.TASKLIST {
+.Tasklist {
   flex: 1;
   margin: 1vh;
-  border: 1px solid black;
   border-radius: 5px;
-  background: white;
+  background: grey;
+  box-shadow: 3px 3px 3px black;
 }
 
 .single-task {
   border: 1px solid black;
   border-radius: 5px;
   margin: 3px;
+  background-color: white;
 }
 
 .task-content {
@@ -393,9 +394,9 @@ background-color:yellow;
 .StudentList {
   flex: 1;
   margin: 1vh;
-  border: 1px solid black;
   border-radius: 5px;
-  background: white;
+  background: grey;
+  box-shadow: 3px 3px 3px black;
 }
 
 .StudentList header {
@@ -418,12 +419,14 @@ background-color:yellow;
   border: 1px solid black;
   border-radius: 5px;
   margin: 3px;
+  background-color: var(--red);
 }
 
 .SingleStudent { 
   border: 1px solid black;
   border-radius: 5px;
   margin: 3px;
+  background-color: white;
 }
  
 .SingleStudent span {
@@ -432,7 +435,7 @@ background-color:yellow;
 
 .delete-button {
   font-weight: bold;
-  color: darkred;
+  color: var(--red);
   border: none;
   background: none;
   font-size: 12px;
@@ -448,17 +451,14 @@ background-color:yellow;
   float: right;
 }
 
-
-
 /* TO REVIEW */
 .ToReview {
   flex: 1;
   margin: 1vh;
-  border: 1px solid black;
   border-radius: 5px;
   overflow-y: scroll;
-  background: white;
-}
+  background: grey;
+  box-shadow: 3px 3px 3px black;}
 
 .ToReview header {
   font-weight: bold;
@@ -470,13 +470,14 @@ background-color:yellow;
   border-radius: 5px;
   padding: 1px;
   margin: 3px;
+  background-color: white;
 }
 
 .Assignment header {
   font-weight: bold;
 }
 
-/* TAB BUTTON */
+/* == TAB BUTTON == */
 .tab-list {
   border-bottom: 1px solid black;
   padding-left: 0;
@@ -495,22 +496,78 @@ background-color:yellow;
   border-width: 1px 1px 0 1px;
 }
 
-/* PROFILE */
+/* == PROFILE == */
 .profile-page {
-  flex: 1;
+  display: flex;
+  width: 90vh;
+  justify-content: space-evenly;
+  margin-top: 8vh;
 }
 
+.ProfilePage {
+  border: 1px solid black;
+  border-radius: 5px;
+  background: white;
+  padding: 10vh;
+}
+
+.ProfilePage img {
+  border-radius: 50%;
+  background-color: var(--red);
+}
+
+.ProfilePage form {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.ProfilePage label {
+  padding: 1vh;
+}
+
+.ProfilePage p {
+  display: inline-block;
+  background: 2px 2px 4px #000000;
+}
+
+.ProfilePage input:disabled {
+  border: none;
+}
+
+.ProfilePage input:enabled {
+  border: none;
+  background: lightslategrey;
+}
+
+.ProfilePage input[type="submit"] {
+  background-color: var(--red);
+  border: none;
+  color: white;
+  padding: 1vh 10vh;
+  text-align: center;
+  display: inline-block;
+  border-radius: 16px;
+  margin-bottom: 3vh;
+  margin-top: 3vh;
+}
+
+.ProfilePage input[value="Save"] {
+  background-color: green;
+}
 
 /* == LOGIN / REGISTER == */
 
 .Login {
   display: flex;
   height: 100vh;
+  width: 100vh;
 }
 
 .login-container {
   flex: 1; 
-  background: #0E1E40;
+  background-color: var(--darkblue);
   padding-top: 25vh;
 }
 
@@ -568,7 +625,7 @@ background-color:yellow;
 }
 
 .login-register-option a {
-  color: #2ac5ff;
+  color: var(--teal);
   font-size: 1.5vh;
 }
 
