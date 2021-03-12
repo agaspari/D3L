@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Main from './pages/Main';
 import StudentDashboard from "./pages/StudentDashboard";
 import FacultyDashboard from "./pages/FacultyDashboard";
+import StudentClass from './pages/StudentClass';
 import Class from './pages/Class';
 import CalendarPage from './pages/CalendarPage';
 import Dashboard from './pages/Dashboard';

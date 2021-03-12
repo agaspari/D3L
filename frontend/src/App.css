@@ -590,3 +590,8 @@ background-color:yellow;
   color: white;
   padding-bottom: 2vh;
 }
+
+
+.card-title {
+  color: black;
+}

@@ -4,13 +4,21 @@ import AppBar from 'material-ui/AppBar';
 import {List, ListItem} from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 
-export class Confirm extends Component {
-    continue = e => {
+export default class Confirm extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+
+        };
+    }
+    
+    continue = (e) => {
         e.preventDefault();
         //Process Form (Backend)//
         this.props.nextStep();
     }
-    back = e => {
+
+    back = (e) => {
         e.preventDefault();
         this.props.prevStep();
     }
@@ -71,5 +79,3 @@ const styles = {
         margin: 15
     }
 }
-
-export default Confirm

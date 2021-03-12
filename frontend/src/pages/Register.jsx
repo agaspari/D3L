@@ -27,6 +27,20 @@ export default class Register extends React.Component {
         try {
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
             generateUserDocument(user, { isFaculty: usertype, firstname, lastname, });
+            fetch (`${window.location.protocol}//${window.location.hostname}:4000/api/users`, {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userId: user.uid,
+                    firstname,
+                    lastname,
+                    email,
+                    password,
+                    role: usertype ? "faculty" : "student"
+                })
+            });
             this.setState({ email: '', password: '', firstname: '', lastname: '', usertype: '' });
         } catch (error) {
             this.setState({ error: error.message, password: '' });

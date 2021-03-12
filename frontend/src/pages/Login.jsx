@@ -63,7 +63,8 @@ export default class Login extends React.Component {
                         />
                         <br/>
                         <button className="login-button" type="submit">Login</button>
-                        <span>{error}</span>
+                        <br></br>
+                        <span>{error.message}</span>
                     </form>
                     <div className="login-register-option">
                         Don't have an account? <br />
