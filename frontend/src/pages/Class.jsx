@@ -4,6 +4,7 @@ import FilterButton from "../components/FilterButton";
 import Todo from "../components/Todo";
 import { nanoid } from "nanoid";
 import Details from "../components/Details"
+import StudentGroup from "../components/StudentGroup"
 
 
 function usePrevious(value) {
@@ -108,6 +109,7 @@ function usePrevious(value) {
     
     return (
         <div>
+          <StudentGroup/>
       <div className="todoapp stack-large">
         <div className="filters btn-group stack-exception">
           {filterList}
