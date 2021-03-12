@@ -22,11 +22,11 @@ class Group extends Component {
 
         const deleteStudent = (studentId, groupKey) => {
             onDeleteStudent(studentId, groupKey)
-        }
+        }        
 
         return (
             <div className="group-container">
-                <header className="group-title">
+                <header className="group-title" >
                     {group.title}
                     <button className="add-button" onClick={()=>this.showStudentForm()}>+</button>
                 </header>

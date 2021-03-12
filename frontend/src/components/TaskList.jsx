@@ -11,7 +11,7 @@ export default class TaskList extends Component {
         const { tasks } = this.props;
 
         return (
-            <div className="TASKLIST">
+            <div className="Tasklist">
                 <Tabs>
                     <div label="All">
                         {tasks.map(task => <Task task={task} />)}
