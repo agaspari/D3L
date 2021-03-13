@@ -24,13 +24,19 @@ class Group extends Component {
             onDeleteStudent(studentId, groupKey)
         }
 
+        console.log(students);
         return (
             <div className="group-container">
                 <header className="group-title">
                     {group.title}
                     <button className="add-button" onClick={()=>this.showStudentForm()}>+</button>
                 </header>
-                {group.studentIds.map(studentId => <SingleStudent onDeleteStudent={() => deleteStudent(studentId, groupKey)} student={students[studentId]} />)}
+                {group.studentIds.map(
+                    studentId => (
+                        students[studentId] && (
+                        <SingleStudent onDeleteStudent={() => deleteStudent(studentId, groupKey)} student={students[studentId]} />
+                    ))
+                )}
                 {this.state.showComponent ?
                     <StudentForm onAddStudent={onAddStudent} students={students} groupKey={groupKey} group={group}/> :
                     null

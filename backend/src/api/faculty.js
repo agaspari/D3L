@@ -26,7 +26,7 @@ export default ({ config }) => {
 
     api.post('/class/create/', (req, res) => {
         const key = generateKey(5);
-        insertFacultyClass(req.body);
+        insertFacultyClass(req.body, key);
         res.send({ key });
     });
 

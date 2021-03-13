@@ -2,6 +2,8 @@ import { Router } from 'express';
 import users from './users';
 import faculty from './faculty';
 import group from './group';
+import student from './student';
+import classes from './classes';
 
 export default ({ config }) => {
     let api = Router();
@@ -10,5 +12,7 @@ export default ({ config }) => {
     api.use('/users', users({ config }));
     api.use('/faculty', faculty({ config }));
     api.use('/group', group({ config }));
+    api.use('/student', student({ config }));
+    api.use('/class', classes({ config }));
     return api;
 }

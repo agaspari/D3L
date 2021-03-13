@@ -11,7 +11,7 @@ export default class ClassCard extends React.Component {
     }
 
     render() {
-        const { image, title, id, classCode } = this.props;
+        const { image, title, id, classKey } = this.props;
 
         const DATA = [
             { id: "todo-0", name: "Eat", completed: true },
@@ -25,9 +25,9 @@ export default class ClassCard extends React.Component {
                     <Card.Img variant="top" style={{ height: '50%'}} src={image} />
                     <Card.Body>
                         <Card.Title> {title} </Card.Title>
-                        {classCode && classCode.length > 0 &&
+                        {classKey && classKey.length > 0 &&
                             <Card.Text>
-                                {classCode}
+                                Class Key: {classKey}
                             </Card.Text>
                         }
                         

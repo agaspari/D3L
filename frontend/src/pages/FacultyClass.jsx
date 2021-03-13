@@ -12,15 +12,10 @@ export default class FacultyClass extends React.Component {
         super(props);
         this.state = {
             groups: {
-                22: { title: "Group 1", studentIds: [1, 2] },
-                44: { title: "Group 2", studentIds: [3, 4] }
+                22: { title: "Group 1", studentIds: ["lARR5sMpnUUSqoX1y9VrVGlyE562"] },
+                44: { title: "Group 2", studentIds: [] }
             },
-            students: {
-                1: { fname: "Lisa", lname: "Anthony" },
-                2: { fname: "Doug", lname: "Winters" },
-                3: { fname: "Clementine", lname: "Smith" },
-                4: { fname: "Pat", lname: "Johnson" }
-            },
+            students: undefined,
             tasks: [
                 { title: "Add state to todo.", status: "Active" },
                 { title: "Add edit assignment feature.", status: "Active" },
@@ -38,6 +33,24 @@ export default class FacultyClass extends React.Component {
                 18: { title: "Homework9", content: "Hello, this...", studentIds: [3], submitDate: '2/3/21' }
             }
         };
+    }
+
+    componentDidMount() {
+        const { classId } = this.props;
+
+        fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/class/${classId}`, {
+            method: "GET"
+        })
+        .then(res => res.json())
+        .then(data => {
+            data = data.result;
+            let students = {};
+            for (let i = 0; i < data.length; i++) {
+                students[data[i].userId] = data[i];
+            }
+            console.log("HERE ARE STUDENTS: ",  students);
+            this.setState({ students });
+        });
     }
 
     deleteStudent = (studentId, groupKey) => {
@@ -100,23 +113,19 @@ export default class FacultyClass extends React.Component {
 
     }
 
-    componentDidMount() {
-        const { classId } = this.props;
-
-        fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/group/${classId}`, {
-            method: "GET"
-        })
-    }
-
     render() {
         const { groups, students, tasks, assignments } = this.state;
-        
-        return (
-            <div className="FacultyDashboard">
-                <StudentList onDeleteStudent={this.deleteStudent} onAddStudent={this.addStudent} onAddGroup={this.addGroup} groups={groups} students={students}/>
-                <TaskList tasks={tasks}/>
-                <ToReview onEditAssignment={this.editAssignment} assignments={assignments} students={students}/>
-            </div>
-        )
+        console.log("Students: ", students);
+        if (students) {
+            return (
+                <div className="FacultyDashboard">
+                    <StudentList onDeleteStudent={this.deleteStudent} onAddStudent={this.addStudent} onAddGroup={this.addGroup} groups={groups} students={students}/>
+                    <TaskList tasks={tasks}/>
+                    <ToReview onEditAssignment={this.editAssignment} assignments={assignments} students={students}/>
+                </div>
+            );
+        }
+        return <span>Loading</span>;
+
     }
 }

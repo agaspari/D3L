@@ -592,6 +592,6 @@ background-color:yellow;
 }
 
 
-.card-title {
+.card-title, .card-text {
   color: black;
 }

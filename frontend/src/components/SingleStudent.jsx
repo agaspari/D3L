@@ -11,7 +11,9 @@ export class SingleStudent extends Component {
 
     
     render() {
-        const {fname, lname} = this.props.student;
+        console.log(this.props);
+        const {name} = this.props.student;
+
 
         const deleteStudent = () => {
             this.props.onDeleteStudent()
@@ -19,7 +21,7 @@ export class SingleStudent extends Component {
 
         return (
             <div className="SingleStudent">
-                <span>{fname} {lname}</span>
+                <span>{name}</span>
                 <button className="delete-button" onClick={deleteStudent}>x</button>
             </div>
         )

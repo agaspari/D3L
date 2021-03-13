@@ -51,15 +51,9 @@ export default class FacultyDashboard extends Component {
         .then(data => {
             console.log(data);
             this.setState({ classes: data });
-            // const { classes } = this.state;
-            // classes.push({
-            //     title: className,
-            //     classCode: data.key
-            // });
-
-            // this.setState({ classes });
         });
     }
+
     render() {
         // const { groups, students, tasks, assignments, onDeleteStudent, onEditAssignment, onAddStudent, onAddGroup} = this.props
         const { classes, className } = this.state;
@@ -78,7 +72,7 @@ export default class FacultyDashboard extends Component {
                         {classes.map((class_, index) => (
                             <ClassCard
                                 title={class_.className}
-                                classCode={class_.classCode}
+                                classKey={class_.classKey}
                                 id={class_.classId}
                                 image="https://newevolutiondesigns.com/images/freebies/cool-wallpaper-1.jpg"
                             />
