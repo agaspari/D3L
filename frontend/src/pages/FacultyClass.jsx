@@ -48,26 +48,54 @@ export default class FacultyClass extends React.Component {
             for (let i = 0; i < data.length; i++) {
                 students[data[i].userId] = data[i];
             }
-            console.log("HERE ARE STUDENTS: ",  students);
             this.setState({ students });
+        });
+
+        fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/group/assignees/${classId}`, {
+            method: "GET"
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.result) data = data.result;
+            let groups = {};
+            for (let i = 0; i < data.length; i++) {
+                console.log(data[i]);
+                if (groups[data[i].groupId]) {
+                    groups[data[i].groupId].studentIds.push(data[i].userId);
+                } else {
+                    groups[data[i].groupId] = data[i];
+                    groups[data[i].groupId].studentIds = [ data[i].userId ];
+                }
+            }
+            this.setState({ groups });
         });
     }
 
-    deleteStudent = (studentId, groupKey) => {
-        const { groups } = this.state;
-
-        const oldGroup = groups[groupKey]
-        const newStudentIds = oldGroup.studentIds.filter(id => id !== studentId)
-        const newGroup = Object.assign({}, oldGroup, {studentIds: newStudentIds})
-        const newGroups = Object.assign({}, groups, {[groupKey]: newGroup})
-        this.setState({groups: newGroups})
-    }
-
-    addStudent = (studentId, groupKey) => {
+    deleteStudent = (studentId, groupId) => {
         const { groups } = this.state;
         const { classId } = this.props;
 
-        groups[groupKey].studentIds.push(studentId);
+        fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/group/removeMember`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                classId: classId,
+                userId: studentId,
+                groupId
+            })
+        });
+        groups[groupId].studentIds = groups[groupId].studentIds.filter(id => id !== studentId);
+
+        this.setState({ groups });
+    }
+
+    addStudent = (studentId, groupId) => {
+        const { groups } = this.state;
+        const { classId } = this.props;
+
+        groups[groupId].studentIds.push(studentId);
 
         fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/group/addMember`, {
             method: "PUT",
@@ -76,14 +104,14 @@ export default class FacultyClass extends React.Component {
             },
             body: JSON.stringify({
                 classId: classId,
-                userId: "6J9z0pZRcohatGP3CBvWuTjpuFD2",
-                groupId: 1
+                userId: studentId,
+                groupId
             })
         });
         this.setState({groups})
     }
 
-    addGroup = (title) => {
+    addGroup = (groupName) => {
         const { groups } = this.state;
         const { classId } = this.props;
 
@@ -93,13 +121,14 @@ export default class FacultyClass extends React.Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                classId
+                classId,
+                groupName
             })
         })
         .then(res => res.json())
         .then(data => {
             groups[data.key] = {
-                title: "GROUP " + data.key,
+                groupName,
                 studentIds: [],
             }
             //const newKey = Math.max(...Object.keys(groups).map(group => Number(group))) + 1

@@ -4,6 +4,7 @@ import faculty from './faculty';
 import group from './group';
 import student from './student';
 import classes from './classes';
+import messages from './messages';
 
 export default ({ config }) => {
     let api = Router();
@@ -14,5 +15,6 @@ export default ({ config }) => {
     api.use('/group', group({ config }));
     api.use('/student', student({ config }));
     api.use('/class', classes({ config }));
+    api.use('/messages', messages({ config }));
     return api;
 }

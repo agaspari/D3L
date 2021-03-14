@@ -1,8 +1,8 @@
 import { fetchQuery, executeQuery, updateQuery } from '../util/database';
 
-export function createGroup(classId, groupKey, callback) {
+export function createGroup(classId, groupName, groupKey, callback) {
     console.log(classId);
-    executeQuery('INSERT INTO groups (classId, groupKey) VALUES ?', [ classId, groupKey ], (result) => {
+    executeQuery('INSERT INTO groups (classId, groupName, groupKey) VALUES ?', [ classId, groupName, groupKey ], (result) => {
         if (callback) callback(result);
     });
 }
@@ -23,7 +23,7 @@ export function addMember(userId, groupId, classId, callback) {
 }
 
 export function removeMember(userId, groupId, callback) {
-    updateQuery('DELETE FROM groupAssignees WHERE groupId=? AND userId=?', [ userId, groupId ], (result) => {
+    updateQuery('DELETE FROM groupAssignees WHERE groupId=? AND userId=?', [ groupId, userId ], (result) => {
         if (callback) callback(result);
     });
 }
@@ -35,7 +35,7 @@ export function getGroups(classId, callback) {
 }
 
 export function getAssignees(classId, callback) {
-    fetchQuery('SELECT * FROM groupAssignees INNER JOIN groups ON groups.groupId = groupAssignees.groupId WHERE groupAssignees.classId=?', [ classId ], (result) => {
+    fetchQuery('SELECT groups.groupId, groups.classId, groups.groupKey, groups.groupName, userId FROM groups LEFT OUTER JOIN groupAssignees ON groups.groupId = groupAssignees.groupId WHERE groups.classId=?', [ classId ], (result) => {
         if (callback) callback(result);
     });
 }

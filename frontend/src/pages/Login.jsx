@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { auth, signInWithGoogle } from "../firebase";
 import { UserContext } from "../UserProvider";
 import logo from "../logo.svg";
+import Cookies from 'universal-cookie';
 
 export default class Login extends React.Component {
     static contextType = UserContext;
@@ -21,10 +22,21 @@ export default class Login extends React.Component {
         event.preventDefault();
 
         const { email, password } = this.state;
+        const cookies = new Cookies();
 
         auth.signInWithEmailAndPassword(email, password)
         .then((user) => {
-            window.location.replace("/dashboard");
+            fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/users/userType/${user.user.uid}`, {
+                method: "GET"
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log("LOGIN DATA: ", data);
+                cookies.set('userType', data[0].role);
+                cookies.set('userId', user.user.uid);
+                window.location.replace("/dashboard");
+            });
+
         }).catch(error => {
             this.setState({ error });
             console.error("Error signing in with password and email", error);
@@ -38,7 +50,6 @@ export default class Login extends React.Component {
     }
 
     render() {
-        console.log(this.context);
         const { email, password, error } = this.state;
 
         return (

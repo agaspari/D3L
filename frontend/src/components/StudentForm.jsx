@@ -15,9 +15,9 @@ class StudentForm extends Component {
         event.preventDefault();
 
         const { studentId } = this.state;
-        const { groupKey } = this.props;
+        const { groupId } = this.props;
 
-        this.props.onAddStudent(Number(studentId), groupKey);
+        this.props.onAddStudent(studentId, groupId);
         this.setState({ studentId: 'default' })
     }
 
@@ -31,8 +31,8 @@ class StudentForm extends Component {
                     <select value={this.state.studentId} onChange={(event) => this.handleChange(event)}>
                         <option value='default' key='default' selected disabled hidden>Choose here</option>
                         {Object.entries(students).map(([id, student]) => {
-                            if (!(group.studentIds.includes(Number(id)))) {
-                                return (<option key={id} value={id}>{id}: {student.fname} {student.lname}</option>)
+                            if (!(group.studentIds.includes(id))) {
+                                return (<option key={id} value={id}>{student.name} </option>)
                             }
                         })
                         };

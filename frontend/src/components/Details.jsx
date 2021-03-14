@@ -11,7 +11,6 @@ export default class Details extends React.Component {
     render() {
         const { description, dueDate } = this.props;
 
-        console.log(dueDate);
         return (
             <div class="todoapp stack-large">
                 <form class="details_box">

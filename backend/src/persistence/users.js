@@ -10,4 +10,10 @@ export function insertUser(userInfo, callback) {
     executeQuery('INSERT INTO users VALUES ?', [ userInfo.userId, userInfo.role, (userInfo.firstname + " " + userInfo.lastname), userInfo.email, userInfo.password ], (result) => {
         if (callback) callback(result);
     });
-} 
+}
+
+export function getUserType(userId, callback) {
+    fetchQuery('SELECT role FROM users WHERE userId = ?', [ userId ], (result) => {
+        if (callback) callback(result);
+    });
+}

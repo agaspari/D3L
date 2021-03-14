@@ -21,7 +21,7 @@ export default ({ config }) => {
 
     api.put('/create', (req, res) => {
         const key = generateKey(5);
-        createGroup(req.body.classId, key);
+        createGroup(req.body.classId, req.body.groupName, key);
 
         res.send({ key });
     });

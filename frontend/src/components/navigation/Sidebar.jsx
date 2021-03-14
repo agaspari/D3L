@@ -1,20 +1,48 @@
 import React from "react";
 import { UserContext } from "../../UserProvider";
 import {Navigation} from 'react-minimal-side-navigation';
+import Cookies from 'universal-cookie';
 
 export default class Sidebar extends React.Component {
-    static contextType = UserContext;
-
     constructor(props) {
         super(props);
         this.state = {
+            classes: [],
+            classesMessaging: []
         };
     }
 
+    componentDidMount() {
+        const cookies = new Cookies();
+
+        let url = cookies.get("userType") === "faculty" ? `${window.location.protocol}//${window.location.hostname}:4000/api/faculty/classes/${cookies.get('userId')}` : `${window.location.protocol}//${window.location.hostname}:4000/api/student/classes/${cookies.get('userId')}`;
+        console.log("URL: ", url);
+        fetch(url, {
+            method: "GET",
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            if (data.result) data = data.result;
+            
+            let classes = [];
+            let classesMessages = [];
+            for (let i = 0; i < data.length; i++) {
+                classes.push({
+                    title: data[i].className,
+                    itemId: `/class/${data[i].classId}`
+                });
+                classesMessages.push({
+                    title: data[i].className,
+                    itemId: `/class/messages/${data[i].classId}`
+                });
+            }
+            this.setState({ classes, classesMessages });
+        });
+    }
 
     render() {
-        console.log("From sidebar: ", this.context);
-
+        const { classes, classesMessages } = this.state;
         return (    
             <div id="sidebar">
                 <>
@@ -33,24 +61,7 @@ export default class Sidebar extends React.Component {
                             },
                             {
                                 title: 'Classes',
-                                subNav: [
-                                    {
-                                        title: 'Class 1',
-                                        itemId: '/class/1',
-                                    },
-                                    {
-                                        title: 'Class 2',
-                                        itemId: '/class/2',
-                                    },
-                                    {
-                                        title: 'Class 2',
-                                        itemId: '/class/3',
-                                    },
-                                    {
-                                        title: 'Class 3',
-                                        itemId: '/class/4',
-                                    },
-                                ],
+                                subNav: classes,
                             },
                             {
                                 title: 'Resources',
@@ -62,17 +73,7 @@ export default class Sidebar extends React.Component {
                             },
                             {
                                 title: 'Messages',
-                                itemId: '',
-                                subNav: [
-                                    {
-                                        title: 'CSC 300',
-                                        itemId: '/management/teams',
-                                    },
-                                    {
-                                        title: 'Prof. Thomas Muscarelo',
-                                        itemId: '/management/teams',
-                                    },
-                                ],
+                                subNav: classesMessages
                             },
                         ]}
                     />

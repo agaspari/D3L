@@ -11,7 +11,6 @@ export class SingleStudent extends Component {
 
     
     render() {
-        console.log(this.props);
         const {name} = this.props.student;
 
 
