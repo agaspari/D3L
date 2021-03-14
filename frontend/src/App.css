@@ -3,7 +3,26 @@
   text-align: center;
   background-color: #0E1E40;
   display: flex;
-  height: 100vh;
+  height:100%;
+}
+
+.App > div, .main, .main > div {
+  width: 100%;
+
+}
+
+.main {
+  padding: 20px;
+}
+
+.studentClassList {
+  background-color: white;
+  padding: 5px;
+  border: 3px solid #0E1E40;
+}
+
+html, body, #root, #root > div {
+  height: 100%
 }
 
 .App-logo {
@@ -28,7 +47,11 @@
 #sidebar{
   float:left;
   background-color: #bd2130;
-  height: 100vh;
+  height: 100%;
+}
+
+.side-navigation-panel-select-option-text {
+  color: lightgray;
 }
 
 html,body,.calendar-container{
@@ -38,6 +61,12 @@ html,body,.calendar-container{
 .calendar-container {
   margin: 5vh;
   background-color: white;
+}
+
+.content-container, .content-container > div {
+  text-align: center;
+  justify-content: center;
+  color: white;
 }
 
 .react-calendar {
@@ -367,7 +396,10 @@ background-color:yellow;
   width: 100vh;
   justify-content: space-evenly;
   flex-basis: 0;
-  height: 80vh
+  height: 80vh;
+  width: 75%;
+  margin: auto;
+  padding: 5px;
 }
 
 /* TASKLIST */
@@ -439,7 +471,7 @@ background-color:yellow;
   float: right;
 }
 
-.add-button {
+.add-button, .view-button {
   font-weight: bold;
   color: darkgreen;
   border: none;
@@ -509,7 +541,7 @@ background-color:yellow;
 }
 
 .login-container {
-  flex: 1; 
+  flex: 3 1; 
   background: #0E1E40;
   padding-top: 25vh;
 }
@@ -575,4 +607,9 @@ background-color:yellow;
 .error {
   color: white;
   padding-bottom: 2vh;
+}
+
+
+.card-title, .card-text {
+  color: black;
 }

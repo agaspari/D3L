@@ -4,9 +4,11 @@ import React from "react";
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Calendar, momentLocalizer  } from 'react-big-calendar' 
 import moment from 'moment'
+import { UserContext } from "../UserProvider";
 
 export default class CalendarPage extends React.Component {
-    
+    static contextType = UserContext;
+
     constructor(props) {
         super(props);
         this.localizer = momentLocalizer(moment)
@@ -34,9 +36,30 @@ export default class CalendarPage extends React.Component {
         };
     }
 
-    render() {
-        
+    componentDidMount() {
+        fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/users/tasks/${this.context.uid}`, {
+            method: "GET"
+        })
+        .then(res => res.json())
+        .then(data => {
+            let tasks = [];
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].status === "incomplete") {
+                    tasks.push({
+                        title: data[i].taskName,
+                        start: new Date(data[i].dateDue),
+                        end: new Date(data[i].dateDue),
+                        allDay: true
+                    })
+                }
 
+            }
+
+            this.setState({ list: tasks });
+        });
+    }
+
+    render() {
         return (
             <div style={{ height: '600px'}}>
                 <div className="calendar-container">

@@ -18,21 +18,33 @@ class Group extends Component {
     }
 
     render() {
-        const {group, students, onDeleteStudent, onAddStudent, groupKey} = this.props
+        const { group, students, onDeleteStudent, onAddStudent, groupId, onSelectGroup } = this.props
 
-        const deleteStudent = (studentId, groupKey) => {
-            onDeleteStudent(studentId, groupKey)
+        const deleteStudent = (studentId, groupId) => {
+            onDeleteStudent(studentId, groupId)
         }
+
+        group.studentIds.forEach(studentId => {
+            console.log("ID: " + studentId);
+            console.log(students[studentId]);
+        });
 
         return (
             <div className="group-container">
                 <header className="group-title">
-                    {group.title}
+                    {group.groupName}
                     <button className="add-button" onClick={()=>this.showStudentForm()}>+</button>
+                    <button className="view-button" onClick={() => onSelectGroup(group.groupId)}>></button>
                 </header>
-                {group.studentIds.map(studentId => <SingleStudent onDeleteStudent={() => deleteStudent(studentId, groupKey)} student={students[studentId]} />)}
+                {group.studentIds && group.studentIds.map(
+                    studentId => (
+                        students[studentId] && (
+                            <SingleStudent onDeleteStudent={() => deleteStudent(studentId, groupId)} student={students[studentId]} />
+                        )
+                    )
+                )}
                 {this.state.showComponent ?
-                    <StudentForm onAddStudent={onAddStudent} students={students} groupKey={groupKey} group={group}/> :
+                    <StudentForm onAddStudent={onAddStudent} students={students} groupId={groupId} group={group}/> :
                     null
                 }
             </div>

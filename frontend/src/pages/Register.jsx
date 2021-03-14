@@ -12,9 +12,9 @@ export default class Register extends React.Component {
             email: "",
             password: "",
             error: "",
-            usertype: "",
-            fname: "",
-            lname: ""
+            usertype: false,
+            firstname: "",
+            lastname: ""
         };
     }
 
@@ -22,12 +22,26 @@ export default class Register extends React.Component {
 
     createUserWithEmailAndPasswordHandler = async (event) => {
         event.preventDefault();
-        const { email, password, usertype, fname, lname } = this.state;
+        const { email, password, usertype, firstname, lastname } = this.state;
 
         try {
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
-            generateUserDocument(user, { usertype, fname, lname, });
-            this.setState({ email: '', password: '', fname: '', lname: '', usertype: '' });
+            generateUserDocument(user, { isFaculty: usertype, firstname, lastname, });
+            fetch (`${window.location.protocol}//${window.location.hostname}:4000/api/users`, {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userId: user.uid,
+                    firstname,
+                    lastname,
+                    email,
+                    password,
+                    role: usertype ? "faculty" : "student"
+                })
+            });
+            this.setState({ email: '', password: '', firstname: '', lastname: '', usertype: '' });
         } catch (error) {
             this.setState({ error: error.message, password: '' });
         }
@@ -39,8 +53,13 @@ export default class Register extends React.Component {
         });
     }
 
+    onSelect = (isFaculty) => {
+        this.setState({ usertype: isFaculty ? true : false });
+    }
+
+
     render() {
-        const { email, password, fname, lname, error } = this.state;
+        const { email, password, firstname, lastname, error, usertype } = this.state;
         return (
             <div className="Login">
                 <div className="login-container">
@@ -51,7 +70,7 @@ export default class Register extends React.Component {
                             name="email"
                             value={email}
                             type="email"
-                            placeholder="email"
+                            placeholder="Email"
                         />
                         <br/>
                         <input
@@ -59,38 +78,42 @@ export default class Register extends React.Component {
                             name="password"
                             value={password}
                             type="password"
-                            placeholder="password"
+                            placeholder="Password"
                         />
                         <br/>
                         <input
                             onChange={e => this.onChange(e)}
-                            name="fname"
-                            value={fname}
+                            name="firstname"
+                            value={firstname}
                             type="text"
-                            placeholder="first name"
+                            placeholder="First Name"
                         />
                         <br/>
                         <input
                             onChange={e => this.onChange(e)}
-                            name="lname"
-                            value={lname}
+                            name="lastname"
+                            value={lastname}
                             type="text"
-                            placeholder="last name"
+                            placeholder="Last Name"
                         />
                         <br/>
                         <div className="usertype-buttons">
                             <input
                                 type="radio"
-                                id="radiobutton1"
+                                id="radio-faculty"
                                 name="usertype"
-                                value="faculty" />
-                            <label for="radiobutton1">Faculty</label>
+                                checked={usertype}
+                                onChange={() => this.onSelect(true)}
+                            />
+                            <label htmlFor="radio-faculty">Faculty</label>
                             <input
                                 type="radio"
-                                id="radiobutton2"
-                                name="usertype"
-                                value="student" />
-                            <label for="radiobutton2">Student</label>
+                                id="radio-student"
+                                name={"usertype"}
+                                checked={!usertype}
+                                onChange={() => this.onSelect(false)}
+                            />
+                            <label htmlFor="radio-student">Student</label>
                         </div>
                         <button className="login-button" type="submit">Register</button>
                         <br/>

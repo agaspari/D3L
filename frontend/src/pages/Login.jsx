@@ -1,12 +1,11 @@
 import React, { useState, useContext } from "react";
-// import { AuthContext } from "../index";
-import firebase from 'firebase/app'
 import { auth, signInWithGoogle } from "../firebase";
 import { UserContext } from "../UserProvider";
 import logo from "../logo.svg";
+import Cookies from 'universal-cookie';
 
 export default class Login extends React.Component {
-    static contextType = UserContext; // Todo: Figure out how this works exactly. (ReactJS Context)
+    static contextType = UserContext;
 
     constructor(props) {
         super(props);
@@ -23,8 +22,22 @@ export default class Login extends React.Component {
         event.preventDefault();
 
         const { email, password } = this.state;
+        const cookies = new Cookies();
 
-        auth.signInWithEmailAndPassword(email, password).catch(error => {
+        auth.signInWithEmailAndPassword(email, password)
+        .then((user) => {
+            fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/users/userType/${user.user.uid}`, {
+                method: "GET"
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log("LOGIN DATA: ", data);
+                cookies.set('userType', data[0].role);
+                cookies.set('userId', user.user.uid);
+                window.location.replace("/dashboard");
+            });
+
+        }).catch(error => {
             this.setState({ error });
             console.error("Error signing in with password and email", error);
         });
@@ -37,7 +50,6 @@ export default class Login extends React.Component {
     }
 
     render() {
-        console.log(this.context);
         const { email, password, error } = this.state;
 
         return (
@@ -50,7 +62,7 @@ export default class Login extends React.Component {
                             onChange={e => this.onChange(e)}
                             name="email"
                             type="email"
-                            placeholder="email"
+                            placeholder="Email"
                         />
                         <br/>
                         <input
@@ -58,11 +70,12 @@ export default class Login extends React.Component {
                             name="password"
                             value={password}
                             type="password"
-                            placeholder="password"
+                            placeholder="Password"
                         />
                         <br/>
                         <button className="login-button" type="submit">Login</button>
-                        <span>{error}</span>
+                        <br></br>
+                        <span>{error.message}</span>
                     </form>
                     <div className="login-register-option">
                         Don't have an account? <br />

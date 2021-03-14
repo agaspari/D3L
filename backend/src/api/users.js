@@ -1,13 +1,37 @@
 import { Router } from 'express';
-import { fetchUsers } from '../persistence/users';
+import { fetchUsers, insertUser, getUserType, getGroup, getInfo, updateUser, fetchTasks } from '../persistence/users';
 
 export default ({ config }) => {
     let api = Router();
 
-    api.get('/:classId', (req, res) => {
-        const classId = req.params.userId;
+    api.put('/', (req, res) => {
+        insertUser(req.body);
+    });
 
-        fetchUsers(classId, (result) => {
+    api.get('/userType/:userId', (req, res) => {
+        getUserType(req.params.userId, (result) => {
+            res.send(result);
+        });
+    });
+
+    api.get('/group/:userId/:classId', (req, res) => {
+        getGroup(req.params.userId, req.params.classId, (result) => {
+            res.send(result);
+        });
+    });
+
+    api.get('/info/:userId', (req, res) => {
+        getInfo(req.params.userId, (result) => {
+            res.send(result);
+        });
+    });
+
+    api.post('/update/:userId', (req, res) => {
+        updateUser(req.params.userId, req.body);
+    });
+
+    api.get('/tasks/:userId', (req, res) => {
+        fetchTasks(req.params.userId, (result) => {
             res.send(result);
         });
     });
