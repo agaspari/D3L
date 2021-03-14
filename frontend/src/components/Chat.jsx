@@ -19,10 +19,11 @@ export default class Chat extends React.Component {
     
 
     componentDidMount() {
-        const { messages } = this.state;
         const { classId } = this.props;
 
         this.socket.on("chat_received", (msg) => {
+            const { messages } = this.state;
+
             messages.push(msg);
             this.setState({ messages }, () => {
                 const list = document.getElementById("chat-window");
@@ -55,7 +56,7 @@ export default class Chat extends React.Component {
 
         messages.push({ name: "Me", content: txtInput });
 
-        this.socket.emit("chat_send", { user: displayName, message: txtInput })
+        this.socket.emit("chat_send", { name: this.context.firstname + " " + this.context.lastname, content: txtInput })
 
         this.setState({ txtInput: "", messages }, () => {
             const list = document.getElementById("chat-window");

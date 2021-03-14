@@ -11,7 +11,6 @@ export default class Main extends React.Component {
 
     render() {
         const { classId } = this.props.match.params;
-        console.log("HEREJHERE, ", classId);
         return (
             <div>
                 <Chat

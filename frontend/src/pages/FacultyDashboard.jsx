@@ -36,7 +36,8 @@ export default class FacultyDashboard extends Component {
             const { classes } = this.state;
             classes.push({
                 className: className,
-                classKey: data.key
+                classKey: data.key,
+                classId: data.classId
             });
 
             this.setState({ classes });
@@ -55,18 +56,11 @@ export default class FacultyDashboard extends Component {
     }
 
     render() {
-        // const { groups, students, tasks, assignments, onDeleteStudent, onEditAssignment, onAddStudent, onAddGroup} = this.props
         const { classes, className } = this.state;
         console.log(classes);
         return (
-            // <div className="FacultyDashboard">
-            //     <StudentList onDeleteStudent={onDeleteStudent} onAddStudent={onAddStudent} onAddGroup={onAddGroup} groups={groups} students={students}/>
-            //     <TaskList tasks={tasks}/>
-            //     <ToReview onEditAssignment={onEditAssignment} assignments={assignments} students={students}/>
-            // </div>
             <div className="content-container classes">
                 <h1>D3L</h1>
-                <p>StudentDashboard</p>
                 {classes.length > 0 && (
                     <div className="row">
                         {classes.map((class_, index) => (

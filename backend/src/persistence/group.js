@@ -2,8 +2,10 @@ import { fetchQuery, executeQuery, updateQuery } from '../util/database';
 
 export function createGroup(classId, groupName, groupKey, callback) {
     console.log(classId);
-    executeQuery('INSERT INTO groups (classId, groupName, groupKey) VALUES ?', [ classId, groupName, groupKey ], (result) => {
-        if (callback) callback(result);
+    executeQuery('INSERT INTO groups (classId, groupName, groupKey) VALUES ?', [ classId, groupName, groupKey ], () => {
+        fetchQuery('SELECT groupId FROM groups WHERE groupKey = ?', [ groupKey ], (result) => {
+            if (callback) callback(result[0]);
+        });
     });
 }
 

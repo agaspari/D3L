@@ -26,7 +26,7 @@ class App extends Component {
                                 <a href="/profile">Profile Page</a>
                             </div>
                             <div className="url">
-                                <a href="/logout">Logout</a>
+                                <a href="/login">Logout</a>
                             </div>
                         </div>
                     </header>

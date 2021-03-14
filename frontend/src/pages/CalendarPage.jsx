@@ -47,8 +47,8 @@ export default class CalendarPage extends React.Component {
                 if (data[i].status === "incomplete") {
                     tasks.push({
                         title: data[i].taskName,
-                        start: data[i].dateDue,
-                        end: data[i].dateDue,
+                        start: new Date(data[i].dateDue),
+                        end: new Date(data[i].dateDue),
                         allDay: true
                     })
                 }

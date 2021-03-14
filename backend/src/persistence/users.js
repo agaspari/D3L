@@ -7,7 +7,7 @@ export function fetchUsers(guildId, callback) {
 }
 
 export function insertUser(userInfo, callback) {
-    executeQuery('INSERT INTO users VALUES ?', [ userInfo.userId, userInfo.role, (userInfo.firstname + " " + userInfo.lastname), userInfo.email, userInfo.password ], (result) => {
+    executeQuery('INSERT INTO users (userId, role, name, email, password) VALUES ?', [ userInfo.userId, userInfo.role, (userInfo.firstname + " " + userInfo.lastname), userInfo.email, userInfo.password ], (result) => {
         if (callback) callback(result);
     });
 }

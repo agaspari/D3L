@@ -154,7 +154,7 @@ export default class FacultyClass extends React.Component {
         .then(data => {
             let groups = this.state.groups || {};
             
-            groups[data.key] = {
+            groups[data.groupId] = {
                 groupName,
                 studentIds: [],
             }
@@ -269,7 +269,7 @@ export default class FacultyClass extends React.Component {
                 taskId: newTask.taskId,
                 taskName: name,
                 taskDescription: description,
-                status: "uncomplete",
+                status: "incomplete",
                 datePosted: new Date(),
                 dateDue: dueDate,
                 groupId: group.groupId,
@@ -302,7 +302,6 @@ export default class FacultyClass extends React.Component {
         const { tasks } = this.state;
         const task = tasks.filter(task => task.taskId === taskId)[0];
 
-        console.log(task, taskId);
         this.setState({ description: task.taskDescription, dueDate: task.dateDue });
     }
 

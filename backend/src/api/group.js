@@ -21,9 +21,11 @@ export default ({ config }) => {
 
     api.put('/create', (req, res) => {
         const key = generateKey(5);
-        createGroup(req.body.classId, req.body.groupName, key);
+        createGroup(req.body.classId, req.body.groupName, key, (result) => {
+            res.send({ key, groupId: result.groupId });
 
-        res.send({ key });
+        });
+
     });
 
     api.delete('/delete', (req, res) => {

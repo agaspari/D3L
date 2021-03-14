@@ -57,15 +57,11 @@ export default class Sidebar extends React.Component {
                         items={[
                             {
                                 title: 'Dashboard',
-                                itemId: '/StudentDashboard',
+                                itemId: '/dashboard',
                             },
                             {
                                 title: 'Classes',
                                 subNav: classes,
-                            },
-                            {
-                                title: 'Resources',
-                                itemId: '/dashboard',
                             },
                             {
                                 title: 'Calendar',

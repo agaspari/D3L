@@ -129,7 +129,7 @@ export default class StudentClass extends React.Component {
                 taskId: newTask.taskId,
                 taskName: name,
                 taskDescription: description,
-                status: "uncomplete",
+                status: "incomplete",
                 datePosted: new Date(),
                 dateDue: dueDate,
                 groupId: group.groupId,
