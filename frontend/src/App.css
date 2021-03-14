@@ -11,6 +11,16 @@
 
 }
 
+.main {
+  padding: 20px;
+}
+
+.studentClassList {
+  background-color: white;
+  padding: 5px;
+  border: 3px solid #0E1E40;
+}
+
 html, body, #root, #root > div {
   height: 100%
 }
@@ -38,6 +48,10 @@ html, body, #root, #root > div {
   float:left;
   background-color: #bd2130;
   height: 100%;
+}
+
+.side-navigation-panel-select-option-text {
+  color: lightgray;
 }
 
 html,body,.calendar-container{
@@ -457,7 +471,7 @@ background-color:yellow;
   float: right;
 }
 
-.add-button {
+.add-button, .view-button {
   font-weight: bold;
   color: darkgreen;
   border: none;

@@ -39,3 +39,10 @@ export function getAssignees(classId, callback) {
         if (callback) callback(result);
     });
 }
+
+
+export function getGroupAssignees(groupId, callback) {
+    fetchQuery('SELECT * FROM groupAssignees INNER JOIN users ON users.userId = groupAssignees.userId WHERE groupAssignees.groupId=?', [ groupId ], (result) => {
+        if (callback) callback(result);
+    });
+}

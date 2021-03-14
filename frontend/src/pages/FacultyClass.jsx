@@ -4,6 +4,19 @@ import StudentList from '../components/StudentList'
 import TaskList from '../components/TaskList'
 import ToReview from '../components/ToReview'
 import { UserContext } from "../UserProvider";
+import Form from "../components/Form";
+import FilterButton from "../components/FilterButton";
+import Todo from "../components/Todo";
+import { nanoid } from "nanoid";
+import Details from "../components/Details"
+
+const FILTER_MAP = {
+    All: () => true,
+    Active: task => !task.completed,
+    Completed: task => task.completed
+};
+  
+const FILTER_NAMES = Object.keys(FILTER_MAP);
 
 export default class FacultyClass extends React.Component {
     static contextType = UserContext;
@@ -11,16 +24,8 @@ export default class FacultyClass extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            groups: {
-                22: { title: "Group 1", studentIds: ["lARR5sMpnUUSqoX1y9VrVGlyE562"] },
-                44: { title: "Group 2", studentIds: [] }
-            },
+            groups: undefined,
             students: undefined,
-            tasks: [
-                { title: "Add state to todo.", status: "Active" },
-                { title: "Add edit assignment feature.", status: "Active" },
-                { title: "Edit student list.", status: "Complete" }
-            ],
             assignments: {
                 10: { title: "Homework1", content: "Hello, this...", studentIds: [1, 2], submitDate: '2/3/21' },
                 11: { title: "Homework2", content: "Hello, this...", studentIds: [2, 4], submitDate: '2/6/21' },
@@ -31,7 +36,13 @@ export default class FacultyClass extends React.Component {
                 16: { title: "Homework7", content: "Hello, this...", studentIds: [1], submitDate: '2/3/21' },
                 17: { title: "Homework8", content: "Hello, this...", studentIds: [2], submitDate: '2/3/21' },
                 18: { title: "Homework9", content: "Hello, this...", studentIds: [3], submitDate: '2/3/21' }
-            }
+            },
+            tasks: [],
+            filter: 'All',
+            taskList: [],
+            dueDate: "",
+            description: "",
+            group: undefined
         };
     }
 
@@ -69,6 +80,21 @@ export default class FacultyClass extends React.Component {
             }
             this.setState({ groups });
         });
+
+        const { filter } = this.state;
+
+        this.setState({
+            filterList: FILTER_NAMES.map(name => (
+                <FilterButton
+                    key={name}
+                    name={name}
+                    isPressed={name === filter}
+                    setFilter={(name) => { this.setState({ filter: name }, () => { this.update() })}}
+                />
+            ))
+        });
+
+
     }
 
     deleteStudent = (studentId, groupId) => {
@@ -112,7 +138,6 @@ export default class FacultyClass extends React.Component {
     }
 
     addGroup = (groupName) => {
-        const { groups } = this.state;
         const { classId } = this.props;
 
         fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/group/create`, {
@@ -127,6 +152,8 @@ export default class FacultyClass extends React.Component {
         })
         .then(res => res.json())
         .then(data => {
+            let groups = this.state.groups || {};
+            
             groups[data.key] = {
                 groupName,
                 studentIds: [],
@@ -142,15 +169,175 @@ export default class FacultyClass extends React.Component {
 
     }
 
+    update = () => {
+        let { taskList, tasks, filter } = this.state;
+        console.log(tasks, taskList);
+        taskList = tasks.filter(FILTER_MAP[filter]).map(task => (
+                <Todo
+                    id={task.taskId}
+                    name={task.taskName}
+                    completed={task.status === "complete"}
+                    key={task.taskId}
+                    toggleTaskCompleted={this.toggleTaskCompleted}
+                    deleteTask={this.deleteTask}
+                    editTask={this.editTask}
+                    selectTask={this.selectTask}
+                />
+        ));
+    
+        this.setState({ taskList });
+    }
+
+    updateDescription = (id, newDescription) => {
+        const { tasks } = this.state;
+        const editedTaskList = tasks.map(task => {
+            // if this task has the same ID as the edited task
+            if (id === task.taskId) {
+                return {...task, description: newDescription}
+            }
+            return task;
+        });
+
+        this.setState({ tasks: editedTaskList }, () => { this.update() });
+    }
+
+    toggleTaskCompleted = (id) => {
+        const { tasks } = this.state;
+        const updatedTasks = tasks.map(task => {
+            // if this task has the same ID as the edited task
+            if (id === task.taskId) {
+              // use object spread to make a new obkect
+              // whose `completed` prop has been inverted
+                fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/task/update`, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        taskId: id,
+                        status: (task.status == "incomplete") ? "complete" : "incomplete"
+                    })
+                });
+                return {...task, completed: !task.completed}
+            }
+            return task;
+        });
+        this.setState({ tasks: updatedTasks }, () => { this.update() });
+    }
+
+    deleteTask = (id) => {
+        const { tasks, group } = this.state;
+        const remainingTasks = tasks.filter(task => id !== task.taskId);
+        this.setState({ tasks: remainingTasks }, () => { this.update() });
+
+        fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/task/`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                taskId: id,
+            })
+        });
+    }
+  
+    editTask = (id, newName) => {
+        const { tasks } = this.state;
+        const editedTaskList = tasks.map(task => {
+            // if this task has the same ID as the edited task
+            if (id === task.taskId) {
+                return {...task, taskName: newName}
+            }
+            return task;
+        });
+
+        this.setState({ tasks: editedTaskList }, () => { this.update() });
+    }
+  
+    addTask = (name, description, dueDate) => {
+        const { tasks, group } = this.state;
+        console.log("ADDding task: ", group);
+        const newTask = { taskId: "todo-" + nanoid(), taskName: name, completed: false, taskDescription: description, dateDue: dueDate, status: "incomplete" };
+
+        console.log(group);
+        fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/task/`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                taskId: newTask.taskId,
+                taskName: name,
+                taskDescription: description,
+                status: "uncomplete",
+                datePosted: new Date(),
+                dateDue: dueDate,
+                groupId: group.groupId,
+                creatorId: this.context.uid
+            })
+        });
+        tasks.push(newTask);
+        this.setState({ tasks }, () => { this.update() });
+    }
+
+    selectGroup = (groupId) => {
+        fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/task/${groupId}/`, {
+            method: "GET"
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.result) data = data.result;
+            
+            this.setState({ tasks: data }, () => { this.update(); });
+        });
+    }
+  
+    onChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
+
+    selectTask = (taskId) => {
+        const { tasks } = this.state;
+        const task = tasks.filter(task => task.taskId === taskId)[0];
+
+        console.log(task, taskId);
+        this.setState({ description: task.taskDescription, dueDate: task.dateDue });
+    }
+
     render() {
         const { groups, students, tasks, assignments } = this.state;
-        console.log("Students: ", students);
+        const { filterList, taskList, description, dueDate, group, studentList, groupList } = this.state;
+
         if (students) {
             return (
                 <div className="FacultyDashboard">
-                    <StudentList onDeleteStudent={this.deleteStudent} onAddStudent={this.addStudent} onAddGroup={this.addGroup} groups={groups} students={students}/>
-                    <TaskList tasks={tasks}/>
-                    <ToReview onEditAssignment={this.editAssignment} assignments={assignments} students={students}/>
+                    <StudentList onDeleteStudent={this.deleteStudent} onAddStudent={this.addStudent} onSelectGroup={this.selectGroup} onAddGroup={this.addGroup} groups={groups} students={students}/>
+                    <div className="todoapp stack-large">
+                        <div className="filters btn-group stack-exception">
+                            {filterList}
+                        </div>
+                        <h2 id="list-heading" tabIndex="-1" >
+                            {taskList.length} task(s) remaining
+                        </h2>
+                        <ul
+                            role="list"
+                            className="todo-list stack-large stack-exception"
+                            aria-labelledby="list-heading"
+                        >
+                            {taskList}
+                        </ul>
+                        <Form addTask={this.addTask} />
+                    </div>
+                    {description.length > 0 && 
+                        <Details
+                            description={description}
+                            dueDate={dueDate}
+                        />
+                    }
+                    {/* <TaskList tasks={tasks}/>
+                    <ToReview onEditAssignment={this.editAssignment} assignments={assignments} students={students}/> */}
                 </div>
             );
         }

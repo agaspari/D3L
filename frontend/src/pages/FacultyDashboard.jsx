@@ -36,7 +36,7 @@ export default class FacultyDashboard extends Component {
             const { classes } = this.state;
             classes.push({
                 className: className,
-                classCode: data.key
+                classKey: data.key
             });
 
             this.setState({ classes });

@@ -32,7 +32,13 @@ export function getInfo(userId, callback) {
 
 export function updateUser(userId, userInfo, callback) {
     console.log(userId, userInfo);
-    updateQuery('UPDATE users SET name=?, bio=?, major=? WHERE userId=?', [userInfo.name, userInfo.bio, userInfo.major, userId], () => {
+    updateQuery('UPDATE users SET name=?, bio=?, major=? WHERE userId=?', [ userInfo.name, userInfo.bio, userInfo.major, userId ], () => {
         
+    });
+}
+
+export function fetchTasks(userId, callback) {
+    fetchQuery('SELECT * FROM groupAssignees INNER JOIN tasks ON groupAssignees.groupId = tasks.groupId WHERE groupAssignees.userId=?', [ userId ], (result) => {
+        if (callback) callback(result);
     });
 }

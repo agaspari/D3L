@@ -35,6 +35,7 @@ export default class StudentDashboard extends React.Component {
         })
         .then(res => res.json())
         .then(data => {
+            if (data.result) data = data.result;
             const { classes } = this.state;
             classes.push(data);
             this.setState({ classes });

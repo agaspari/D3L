@@ -25,7 +25,7 @@ export default class StudentClass extends React.Component {
             taskList: [],
             dueDate: "",
             description: "",
-            group: { }
+            group: undefined
         }
     }
   
@@ -84,8 +84,7 @@ export default class StudentClass extends React.Component {
         });
         this.setState({ tasks: updatedTasks }, () => { this.update() });
     }
-  
-  
+
     deleteTask = (id) => {
         const { tasks, group } = this.state;
         const remainingTasks = tasks.filter(task => id !== task.taskId);
@@ -176,44 +175,91 @@ export default class StudentClass extends React.Component {
         .then(res => res.json())
         .then(data => {
             if (data.result) data = data.result;
+            if (data[0] && data[0].groupId) {
+                fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/task/${data[0].groupId}/`, {
+                    method: "GET"
+                })
+                .then(res => res.json())
+                .then(data2 => {
+                    if (data2.result) data2 = data2.result;
+                    
+                    this.setState({ group: data[0], tasks: data2 }, () => { this.update(); });
+                });
 
-            fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/task/${data[0].groupId}/`, {
-                method: "GET"
-            })
-            .then(res => res.json())
-            .then(data2 => {
-                if (data2.result) data2 = data2.result;
-                
-                this.setState({ group: data[0], tasks: data2 }, () => { this.update(); });
-            });
+                fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/group/groupAssigness/${data[0].groupId}`, {
+                    method: 'GET'
+                })
+                .then(res => res.json())
+                .then(data2 => {
+                    if (data2.result) data2 = data2.result;
+
+                    this.setState({ groupList: data2 });
+                });
+            }
         });
+        fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/class/${classId}`, {
+            method: 'GET'
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.result) data = data.result;
+
+            this.setState({ studentList: data });
+        });
+
     }
 
     render() {
-        const { filterList, taskList, description, dueDate } = this.state;
-        return (
-            <div>
-                <div className="todoapp stack-large">
-                    <div className="filters btn-group stack-exception">
-                        {filterList}
+        const { filterList, taskList, description, dueDate, group, studentList, groupList } = this.state;
+        if (group) {
+            return (
+                <div className="studentClass">
+                    <div className="row">
+                        <div className="col-md-6 studentClassList">
+                            <h5>Class List</h5>
+                            <ul>
+                                {studentList && studentList.map((student) => (
+                                    <li>{student.name}</li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div className="col-md-6 studentClassList">
+                            <h5>Group List</h5>
+                            <ul>
+                                {groupList && groupList.map((student) => (
+                                    <li>{student.name}</li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div className="todoapp stack-large">
+                            <div className="filters btn-group stack-exception">
+                                {filterList}
+                            </div>
+                            <h2 id="list-heading" tabIndex="-1" >
+                                {taskList.length} task(s) remaining
+                            </h2>
+                            <ul
+                                role="list"
+                                className="todo-list stack-large stack-exception"
+                                aria-labelledby="list-heading"
+                            >
+                                {taskList}
+                            </ul>
+                            <Form addTask={this.addTask} />
+                        </div>
+                        {description.length > 0 && 
+                            <Details
+                                description={description}
+                                dueDate={dueDate}
+                            />
+                        }
+
                     </div>
-                    <h2 id="list-heading" tabIndex="-1" >
-                        {taskList.length} task(s) remaining
-                    </h2>
-                    <ul
-                        role="list"
-                        className="todo-list stack-large stack-exception"
-                        aria-labelledby="list-heading"
-                    >
-                        {taskList}
-                    </ul>
-                    <Form addTask={this.addTask} />
-                </div>
-                <Details
-                    description={description}
-                    dueDate={dueDate}
-                />
-           </div>
-        );
+               </div>
+            );
+        } else {
+            return <p>You are currently not assigned to a group for this class. Please wait for your instructor to assign you to a group.</p>
+        }
+
     }
 }

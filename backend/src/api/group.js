@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createGroup, deleteGroup, addMember, removeMember, getAssignees, getGroups } from '../persistence/group';
+import { createGroup, deleteGroup, addMember, removeMember, getAssignees, getGroups, getGroupAssignees } from '../persistence/group';
 
 const keySymbols = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
@@ -48,6 +48,14 @@ export default ({ config }) => {
     api.get('/:classId', (req, res) => {
         const { classId } = req.params;
         getGroups(classId, (result) => {
+            res.send(result);
+        });
+    });
+
+    api.get('/groupAssigness/:groupId', (req, res) => {
+        const { groupId } = req.params;
+
+        getGroupAssignees(groupId, result => {
             res.send(result);
         });
     });
