@@ -23,3 +23,16 @@ export function getGroup(userId, classId, callback) {
         if (callback) callback(result);
     });
 }
+
+export function getInfo(userId, callback) {
+    fetchQuery('SELECT * FROM users WHERE userId = ?', [ userId ], (result) => {
+        if (callback) callback(result);
+    })
+}
+
+export function updateUser(userId, userInfo, callback) {
+    console.log(userId, userInfo);
+    updateQuery('UPDATE users SET name=?, bio=?, major=? WHERE userId=?', [userInfo.name, userInfo.bio, userInfo.major, userId], () => {
+        
+    });
+}

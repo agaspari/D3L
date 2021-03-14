@@ -1,71 +1,90 @@
 import React, { Component } from 'react'
+import { UserContext } from "../UserProvider";
 
 class ProfilePage extends Component {
+    static contextType = UserContext;
+
     constructor(props) {
         super(props)
 
         this.state = {
-            student: {
-                fname: "John", lname: "Doe", email: "jd@gmail.com",
-                password: "1234dkjfao", usertype: "student"
-            },
-
+            name: "",
+            bio: "", 
+            major: "",
             isEditing: false
         }
     }
 
+    componentDidMount() {
+        fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/users/info/${this.context.uid}`, {
+            method: "GET"
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.result) data = data.result;
+
+            this.setState({ name: data[0].name, bio: data[0].bio, major: data[0].major });
+        });
+    }
 
     onChange = (e) => {
         this.setState({
-            student: {
-                [e.target.name]: e.target.value,
-            }
+            [e.target.name]: e.target.value,
         });
     }
 
     handleButton = (e) => {
         e.preventDefault();
 
+        const { name, bio, major, isEditing } = this.state;
+
+        console.log(name, bio, major);
+
+        if (isEditing) {
+            fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/users/update/${this.context.uid}`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name,
+                    bio,
+                    major
+                })
+            })
+        }
         this.setState({
-            isEditing: !this.state.isEditing,
+            isEditing: !isEditing,
         });
 
-        console.log(this.state.student)
     }
 
     render() {
-        const {student, isEditing} = this.state;
-        const {fname, lname, password, email} = student;
+        const {isEditing} = this.state;
+        const {name, bio, major} = this.state;
 
         return (
             <div>
                 <form onSubmit={this.handleButton}>
-                    <label>First name:</label>
+                    <label>Name:</label>
                     <input 
                         type="text" 
-                        name="fname" 
-                        value={fname}
+                        name="name" 
+                        value={name}
                         onChange={(e) => this.onChange(e)} 
                         disabled={!isEditing}/><br/>
-                    <label for="lname">Last name:</label>
+                    <label htmlFor="bio">Bio:</label>
                     <input type="text" 
-                        id="lname"
-                        name="lname"
-                        value={lname}
+                        id="bio" 
+                        name="bio" 
+                        value={bio}
                         onChange={(e) => this.onChange(e)} 
                         disabled={!isEditing}/><br/>
-                    <label for="email">Email address:</label>
+                    <label htmlFor="major">Major:</label>
                     <input type="text" 
-                        id="email" 
-                        name="email" 
-                        value={email}
-                        onChange={(e) => this.onChange(e)} 
-                        disabled={!isEditing}/><br/>
-                    <label for="password">Password:</label>
-                    <input type="password" 
-                        id="password" 
-                        name="password" 
-                        value={password}
+                        id="major" 
+                        name="major" 
+                        value={major}
                         onChange={(e) => this.onChange(e)} 
                         disabled={!isEditing}/><br/>
                     <span>

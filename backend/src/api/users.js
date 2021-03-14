@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { fetchUsers, insertUser, getUserType, getGroup } from '../persistence/users';
+import { fetchUsers, insertUser, getUserType, getGroup, getInfo, updateUser } from '../persistence/users';
 
 export default ({ config }) => {
     let api = Router();
@@ -20,5 +20,14 @@ export default ({ config }) => {
         });
     });
 
+    api.get('/info/:userId', (req, res) => {
+        getInfo(req.params.userId, (result) => {
+            res.send(result);
+        });
+    });
+
+    api.post('/update/:userId', (req, res) => {
+        updateUser(req.params.userId, req.body);
+    });
     return api;
 }

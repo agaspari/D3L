@@ -58,7 +58,6 @@ export default class StudentDashboard extends React.Component {
         return (
             <div className="content-container classes">
                 <h1>D3L</h1>
-                <p>StudentDashboard</p>
                 <div className="row">
                     {classes.length > 0 ? (
                         classes.map((class_, index) => (

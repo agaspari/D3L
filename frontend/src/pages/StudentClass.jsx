@@ -181,10 +181,10 @@ export default class StudentClass extends React.Component {
                 method: "GET"
             })
             .then(res => res.json())
-            .then(data => {
-                if (data.result) data = data.result;
+            .then(data2 => {
+                if (data2.result) data2 = data2.result;
                 
-                this.setState({ group: data[0], tasks: data }, () => { this.update(); });
+                this.setState({ group: data[0], tasks: data2 }, () => { this.update(); });
             });
         });
     }
