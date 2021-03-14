@@ -74,7 +74,7 @@ export default class FacultyDashboard extends Component {
                                 title={class_.className}
                                 classKey={class_.classKey}
                                 id={class_.classId}
-                                image="https://newevolutiondesigns.com/images/freebies/cool-wallpaper-1.jpg"
+                                imageIndex={index + 1}
                             />
                         ))}
                     </div>

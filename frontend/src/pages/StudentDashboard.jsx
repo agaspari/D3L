@@ -65,7 +65,7 @@ export default class StudentDashboard extends React.Component {
                             <ClassCard
                                 title={class_.className}
                                 id={class_.classId}
-                                image="https://newevolutiondesigns.com/images/freebies/cool-wallpaper-1.jpg"
+                                imageIndex={index + 1}
                             />
                         ))
                     ) : (

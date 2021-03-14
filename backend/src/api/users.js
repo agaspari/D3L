@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { fetchUsers, insertUser, getUserType } from '../persistence/users';
+import { fetchUsers, insertUser, getUserType, getGroup } from '../persistence/users';
 
 export default ({ config }) => {
     let api = Router();
@@ -10,7 +10,12 @@ export default ({ config }) => {
 
     api.get('/userType/:userId', (req, res) => {
         getUserType(req.params.userId, (result) => {
-            console.log("HERE", result);
+            res.send(result);
+        });
+    });
+
+    api.get('/group/:userId/:classId', (req, res) => {
+        getGroup(req.params.userId, req.params.classId, (result) => {
             res.send(result);
         });
     });

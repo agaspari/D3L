@@ -11,7 +11,7 @@ export default class ClassCard extends React.Component {
     }
 
     render() {
-        const { image, title, id, classKey } = this.props;
+        const { imageIndex, title, id, classKey } = this.props;
 
         const DATA = [
             { id: "todo-0", name: "Eat", completed: true },
@@ -22,7 +22,7 @@ export default class ClassCard extends React.Component {
         return (
             <div className="col-md-3 d-flex justify-content-center classCard">
                 <Card style={{ width: '80%' }}>
-                    <Card.Img variant="top" style={{ height: '50%'}} src={image} />
+                    <Card.Img variant="top" style={{ height: '50%'}} src={`/backgrounds/${imageIndex}.jpg`} />
                     <Card.Body>
                         <Card.Title> {title} </Card.Title>
                         {classKey && classKey.length > 0 &&

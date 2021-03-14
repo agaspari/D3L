@@ -12,15 +12,15 @@ export default class Details extends React.Component {
         const { description, dueDate } = this.props;
 
         return (
-            <div class="todoapp stack-large">
-                <form class="details_box">
+            <div className="todoapp stack-large">
+                <form className="details_box">
                     <ul>
                         <li>
                             Due: {dueDate}
                         </li>
-                        <li>
+                        {/* <li>
                             Assigned By:
-                        </li>
+                        </li> */}
                         <br/>
                         
                         <li id="description">

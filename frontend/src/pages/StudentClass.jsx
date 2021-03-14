@@ -4,7 +4,8 @@ import FilterButton from "../components/FilterButton";
 import Todo from "../components/Todo";
 import { nanoid } from "nanoid";
 import Details from "../components/Details"
-  
+import { UserContext } from "../UserProvider";
+
 const FILTER_MAP = {
     All: () => true,
     Active: task => !task.completed,
@@ -14,6 +15,8 @@ const FILTER_MAP = {
 const FILTER_NAMES = Object.keys(FILTER_MAP);
 
 export default class StudentClass extends React.Component {
+    static contextType = UserContext;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -21,7 +24,8 @@ export default class StudentClass extends React.Component {
             filter: 'All',
             taskList: [],
             dueDate: "",
-            description: ""
+            description: "",
+            group: { }
         }
     }
   
@@ -30,10 +34,10 @@ export default class StudentClass extends React.Component {
         console.log(tasks, taskList);
         taskList = tasks.filter(FILTER_MAP[filter]).map(task => (
                 <Todo
-                    id={task.id}
-                    name={task.name}
-                    completed={task.completed}
-                    key={task.id}
+                    id={task.taskId}
+                    name={task.taskName}
+                    completed={task.status === "complete"}
+                    key={task.taskId}
                     toggleTaskCompleted={this.toggleTaskCompleted}
                     deleteTask={this.deleteTask}
                     editTask={this.editTask}
@@ -48,7 +52,7 @@ export default class StudentClass extends React.Component {
         const { tasks } = this.state;
         const editedTaskList = tasks.map(task => {
             // if this task has the same ID as the edited task
-            if (id === task.id) {
+            if (id === task.taskId) {
                 return {...task, description: newDescription}
             }
             return task;
@@ -61,10 +65,20 @@ export default class StudentClass extends React.Component {
         const { tasks } = this.state;
         const updatedTasks = tasks.map(task => {
             // if this task has the same ID as the edited task
-            if (id === task.id) {
+            if (id === task.taskId) {
               // use object spread to make a new obkect
               // whose `completed` prop has been inverted
-              return {...task, completed: !task.completed}
+                fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/task/update`, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        taskId: id,
+                        status: (task.status == "incomplete") ? "complete" : "incomplete"
+                    })
+                });
+                return {...task, completed: !task.completed}
             }
             return task;
         });
@@ -73,17 +87,27 @@ export default class StudentClass extends React.Component {
   
   
     deleteTask = (id) => {
-        const { tasks } = this.state;
-        const remainingTasks = tasks.filter(task => id !== task.id);
+        const { tasks, group } = this.state;
+        const remainingTasks = tasks.filter(task => id !== task.taskId);
         this.setState({ tasks: remainingTasks }, () => { this.update() });
+
+        fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/task/`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                taskId: id,
+            })
+        });
     }
   
     editTask = (id, newName) => {
         const { tasks } = this.state;
         const editedTaskList = tasks.map(task => {
             // if this task has the same ID as the edited task
-            if (id === task.id) {
-                return {...task, name: newName}
+            if (id === task.taskId) {
+                return {...task, taskName: newName}
             }
             return task;
         });
@@ -92,9 +116,27 @@ export default class StudentClass extends React.Component {
     }
   
     addTask = (name, description, dueDate) => {
-        const { tasks } = this.state;
-        const newTask = { id: "todo-" + nanoid(), name, completed: false, description: description, dueDate };
+        const { tasks, group } = this.state;
+        console.log("ADDding task: ", group);
+        const newTask = { taskId: "todo-" + nanoid(), taskName: name, completed: false, taskDescription: description, dateDue: dueDate, status: "incomplete" };
 
+        console.log(group);
+        fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/task/`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                taskId: newTask.taskId,
+                taskName: name,
+                taskDescription: description,
+                status: "uncomplete",
+                datePosted: new Date(),
+                dateDue: dueDate,
+                groupId: group.groupId,
+                creatorId: this.context.uid
+            })
+        });
         tasks.push(newTask);
         this.setState({ tasks }, () => { this.update() });
     }
@@ -107,14 +149,16 @@ export default class StudentClass extends React.Component {
 
     selectTask = (taskId) => {
         const { tasks } = this.state;
-        const task = tasks.filter(task => task.id === taskId)[0];
+        const task = tasks.filter(task => task.taskId === taskId)[0];
 
         console.log(task, taskId);
-        this.setState({ description: task.description, dueDate: task.dueDate });
+        this.setState({ description: task.taskDescription, dueDate: task.dateDue });
     }
 
     componentDidMount() {
         const { filter } = this.state;
+        const { classId } = this.props;
+
         this.setState({
             filterList: FILTER_NAMES.map(name => (
                 <FilterButton
@@ -124,6 +168,24 @@ export default class StudentClass extends React.Component {
                     setFilter={(name) => { this.setState({ filter: name }, () => { this.update() })}}
                 />
             ))
+        });
+
+        fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/users/group/${this.context.uid}/${classId}`, {
+            method: 'GET'
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.result) data = data.result;
+
+            fetch(`${window.location.protocol}//${window.location.hostname}:4000/api/task/${data[0].groupId}/`, {
+                method: "GET"
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.result) data = data.result;
+                
+                this.setState({ group: data[0], tasks: data }, () => { this.update(); });
+            });
         });
     }
 

@@ -17,3 +17,9 @@ export function getUserType(userId, callback) {
         if (callback) callback(result);
     });
 }
+
+export function getGroup(userId, classId, callback) {
+    fetchQuery('SELECT * FROM groupAssignees WHERE userId=? AND classId=? LIMIT 1', [ userId, classId ], (result) => {
+        if (callback) callback(result);
+    });
+}
