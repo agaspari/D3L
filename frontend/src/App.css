@@ -61,6 +61,7 @@ html,body,.calendar-container{
 .calendar-container {
   margin: 5vh;
   background-color: white;
+  border-radius: 7px;
 }
 
 .content-container, .content-container > div {
@@ -529,8 +530,48 @@ background-color:yellow;
 
 /* PROFILE */
 .profile-page {
-  flex: 1;
+  background-color: white;
+  border-radius: 5px;
+  padding: 20px 0px 20px 0px;
+  float: center;
 }
+
+.profile-page label {
+  display: inline-block;
+  width:100px;
+  text-align: right;
+  font-weight: bold;
+  color: #0E1E40;
+  padding-right: 10px;
+  display: inline-block;
+}
+
+.profile-page input {
+  display: inline-block;
+  align-content: last baseline;
+}
+
+.profile-page input[type="submit"][value="Save"] {
+  border-radius: 10px;
+  background-color: #0E1E40;
+  color: white;
+  padding: 10px;
+  margin-top: 20px;
+  border: none;
+}
+
+.profile-page input[type="submit"][value="Edit"] {
+  background-color: #bd2130;
+  color: #0E1E40;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 20px;
+  border: none;
+}
+
+
+
+
 
 
 /* == LOGIN / REGISTER == */
@@ -541,7 +582,7 @@ background-color:yellow;
 }
 
 .login-container {
-  flex: 3 1; 
+  flex: 2 1; 
   background: #0E1E40;
   padding-top: 25vh;
 }
