@@ -64,7 +64,7 @@ class ProfilePage extends Component {
         const {name, bio, major} = this.state;
 
         return (
-            <div>
+            <div className="profile-page">
                 <form onSubmit={this.handleButton}>
                     <label>Name:</label>
                     <input 
